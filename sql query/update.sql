@@ -1,0 +1,1 @@
+UPDATE users SET username ='kalani', pwd = '456' WHERE id = 1;

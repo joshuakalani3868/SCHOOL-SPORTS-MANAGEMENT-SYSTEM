@@ -1,0 +1,14 @@
+?php
+
+$dsn = "mysql:host=localhost;dbname=ssms";
+$dbusername = "root";
+$dbpassword = "";
+
+//catch errors
+
+try {
+    $pdo = new PDO($dsn, $dbusername, $dbpassword );  //database connect
+    $pdo->setAttribute(PDO:: ATTR_ERRMODE, PDO:: ERRMODE_EXCEPTION );
+} catch (PDOException $e) {
+     echo "connection failed: " . $e->getMessage();
+} 

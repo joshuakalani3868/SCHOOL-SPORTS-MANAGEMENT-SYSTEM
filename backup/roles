@@ -1,0 +1,67 @@
+<?php
+session_start();
+
+// Mock user data (replace this with your actual user authentication mechanism)
+$users = [
+    "student1" => ["password" => "password", "role" => "student"],
+    "coach1" => ["password" => "password", "role" => "coach"],
+    "admin1" => ["password" => "password", "role" => "admin"]
+];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Check if user exists and password is correct
+    if (isset($users[$username]) && $users[$username]['password'] == $password) {
+        // Set role session variable
+        $_SESSION['role'] = $users[$username]['role'];
+        
+        // Redirect based on role
+        if ($_SESSION['role'] == 'admin') {
+            header("Location: admin_dashboard.php");
+            exit;
+        } elseif ($_SESSION['role'] == 'student') {
+            header("Location: student_dashboard.php");
+            exit;
+        } elseif ($_SESSION['role'] == 'coach') {
+            header("Location: coach_dashboard.php");
+            exit;
+        }
+    } else {
+        $error = "Invalid username or password. Please try again.";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2>Login</h2>
+                <?php if(isset($error)): ?>
+                <div class="alert alert-danger"><?php echo $error; ?></div>
+                <?php endif; ?>
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

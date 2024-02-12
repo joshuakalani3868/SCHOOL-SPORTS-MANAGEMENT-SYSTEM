@@ -40,7 +40,7 @@ if (isset($_POST['update_user'])) {
     $name = $_POST['name'];
     $password = $_POST['pwd'];
     $email = $_POST['email'];
-
+joshua:
     // Using prepared statements to prevent SQL injection
     $stmt = $pdo->prepare("UPDATE users SET username = :name, pwd = :password, email = :email WHERE id = :user_id");
 

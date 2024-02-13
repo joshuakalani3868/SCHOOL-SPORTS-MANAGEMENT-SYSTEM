@@ -17,9 +17,10 @@
     <a href="#" class="logo">SSMS</a>
     <nav class="nav-items">
       <a href="#">Home</a>
-      <a href="./chartjs.php">Sports</a>
+      <a href="../admin/sport_view.php">Sports</a>
       <a href="./chartjs.php">Sport Facility</a>
       <a href="./chartjs.php">Sport Event</a>
+      <a href="./chartjs.php">Results</a>
       <a href="../includes/logout.inc.php">Logout</a>
     
     </nav>

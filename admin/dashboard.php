@@ -6,7 +6,7 @@
 
     <!-- ===== CSS ===== -->
     <link rel="stylesheet" href="../css/dashboard.css">
-    <title>Dashboard</title>
+    <title> Admin Dashboard</title>
 </head>
 <body id="body-pd">
     <div class="l-navbar" id="navbar">
@@ -33,9 +33,12 @@
                         <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
 
                         <ul class="collapse__menu">
-                            <a href="#" class="collapse__sublink">Sports_Event</a>
-                            <a href="#" class="collapse__sublink">Sports_Facility</a>
+                            <a href="sport_details.php" class="collapse__sublink">Sports</a>
+                            <a href="facility_details.php" class="collapse__sublink">Sports_Facility</a>
+                            <a href="event_details.php" class="collapse__sublink">Sports_Events</a>
                             <a href="#" class="collapse__sublink">Sports_Team</a>
+                            <a href="#" class="collapse__sublink">Results</a>
+                            <a href="#" class="collapse__sublink">Reports</a>
                         </ul>
                     </div>
 

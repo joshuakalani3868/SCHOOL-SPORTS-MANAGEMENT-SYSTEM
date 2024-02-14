@@ -1,5 +1,10 @@
 <?php
 session_start();
+include('../includes/facility.inc.php'); // Include the logic file
+
+// Fetch sports available
+$sports = fetchSports(); // Assuming you have a function to fetch sports from the database
+
 ?>
 
 <!doctype html>
@@ -41,7 +46,11 @@ session_start();
                         </div>
                         <div class="mb-3">
                             <label for="sports_available">Sports Available</label>
-                            <input type="text" id="sports_available" name="sports_available" class="form-control">
+                            <select id="sports_available" name="sports_available" class="form-control">
+                                <?php foreach ($sports as $sport): ?>
+                                    <option value="<?php echo $sport['Sport_name']; ?>"><?php echo $sport['Sport_name']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="capacity">Capacity</label>
@@ -49,7 +58,7 @@ session_start();
                         </div>
                         <div class="mb-3">
                             <label for="operating_time">Operating Time</label>
-                            <input type="" id="operating_time" name="operating_time" class="form-control">
+                            <input type="time" id="operating_time" name="operating_time" class="form-control">
                         </div>
                         <div class="mb-3">
                             <button type="submit" name="save_facility" class="btn btn-primary">Save Facility</button>

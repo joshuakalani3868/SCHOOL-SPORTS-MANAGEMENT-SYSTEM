@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 require 'dbh.inc.php';
 
 // Adding facility
@@ -102,6 +104,25 @@ if(isset($_POST['delete_facility'])) {
         $_SESSION['message'] = "Failed to prepare the statement!";
         header("Location: ../admin/facility_details.php");
         exit(0);
+    }
+}
+
+
+// Function to fetch sports from the database
+function fetchSports() {
+    global $pdo; // Assuming $pdo is your database connection object
+
+    try {
+        $stmt = $pdo->query("SELECT Sport_name FROM sports");
+
+        // Fetch all rows as associative array
+        $sports = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $sports;
+    } catch (PDOException $e) {
+        // Handle database errors
+        echo "Error: " . $e->getMessage();
+        return array(); // Return an empty array if there's an error
     }
 }
 ?>

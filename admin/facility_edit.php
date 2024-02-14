@@ -1,6 +1,11 @@
 <?php
 session_start();
 require '../includes/dbh.inc.php';
+include('../includes/facility.inc.php'); // Include the logic file
+
+// Fetch sports available
+$sports = fetchSports(); // Assuming you have a function to fetch sports from the database
+
 ?>
 
 <!doctype html>
@@ -54,7 +59,11 @@ require '../includes/dbh.inc.php';
                                 </div>
                                 <div class="mb-3">
                                     <label for="sports_available">Sports Available</label>
-                                    <input type="text" id="sports_available" name="sports_available" value="<?=$facility['sports_available'];?>" class="form-control">
+                                    <select id="sports_available" name="sports_available" class="form-control">
+                                        <?php foreach ($sports as $sport): ?>
+                                            <option value="<?php echo $sport['Sport_name']; ?>" <?php if($sport['Sport_name'] == $facility['sports_available']) echo 'selected'; ?>><?php echo $sport['Sport_name']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="capacity">Capacity</label>

@@ -9,17 +9,17 @@ if (isset($_POST['save_facility'])) {
     $facility_type = $_POST['facility_type'];
     $sports_available = $_POST['sports_available'];
     $capacity = $_POST['capacity'];
-    $operating_hours = $_POST['operating_hours'];
+    $operating_time = $_POST['operating_time'];
 
     // Using prepared statements to prevent SQL injection
-    $stmt = $pdo->prepare("INSERT INTO facilities (facility_name, facility_type, sports_available, capacity, operating_hours) VALUES (:facility_name, :facility_type, :sports_available, :capacity, :operating_hours)");
+    $stmt = $pdo->prepare("INSERT INTO facilities (facility_name, facility_type, sports_available, capacity, operating_time) VALUES (:facility_name, :facility_type, :sports_available, :capacity, :operating_time)");
 
     if ($stmt) {
         $stmt->bindParam(':facility_name', $facility_name);
         $stmt->bindParam(':facility_type', $facility_type);
         $stmt->bindParam(':sports_available', $sports_available);
         $stmt->bindParam(':capacity', $capacity);
-        $stmt->bindParam(':operating_hours', $operating_hours);
+        $stmt->bindParam(':operating_time', $operating_time);
 
         try {
             $stmt->execute();
@@ -46,17 +46,17 @@ if (isset($_POST['update_facility'])) {
     $facility_type = $_POST['facility_type'];
     $sports_available = $_POST['sports_available'];
     $capacity = $_POST['capacity'];
-    $operating_hours = $_POST['operating_hours'];
+    $operating_time = $_POST['operating_time'];
 
     // Using prepared statements to prevent SQL injection
-    $stmt = $pdo->prepare("UPDATE facilities SET facility_name = :facility_name, facility_type = :facility_type, sports_available = :sports_available, capacity = :capacity, operating_hours = :operating_hours WHERE id = :facility_id");
+    $stmt = $pdo->prepare("UPDATE facilities SET facility_name = :facility_name, facility_type = :facility_type, sports_available = :sports_available, capacity = :capacity, operating_time = :operating_time WHERE id = :facility_id");
 
     if ($stmt) {
         $stmt->bindParam(':facility_name', $facility_name);
         $stmt->bindParam(':facility_type', $facility_type);
         $stmt->bindParam(':sports_available', $sports_available);
         $stmt->bindParam(':capacity', $capacity);
-        $stmt->bindParam(':operating_hours', $operating_hours);
+        $stmt->bindParam(':operating_time', $operating_time);
         $stmt->bindParam(':facility_id', $facility_id);
 
         try {

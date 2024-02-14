@@ -48,8 +48,8 @@ session_start();
                             <input type="number" id="capacity" name="capacity" class="form-control">
                         </div>
                         <div class="mb-3">
-                            <label for="operating_hours">Operating Hours</label>
-                            <input type="text" id="operating_hours" name="operating_hours" class="form-control">
+                            <label for="operating_time">Operating Time</label>
+                            <input type="" id="operating_time" name="operating_time" class="form-control">
                         </div>
                         <div class="mb-3">
                             <button type="submit" name="save_facility" class="btn btn-primary">Save Facility</button>

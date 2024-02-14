@@ -55,8 +55,8 @@ require '../includes/dbh.inc.php';
                                 <p class="form-control"><?=$facility['capacity'];?></p>
                             </div>
                             <div class="mb-3">
-                                <label for="operating_hours">Operating Hours</label>
-                                <p class="form-control"><?=$facility['operating_hours'];?></p>
+                                <label for="operating_time">Operating Time</label>
+                                <p class="form-control"><?=$facility['operating_time'];?></p>
                             </div>
                             <?php
                         }

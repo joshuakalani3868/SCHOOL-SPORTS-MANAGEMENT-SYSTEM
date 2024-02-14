@@ -61,8 +61,8 @@ require '../includes/dbh.inc.php';
                                     <input type="number" id="capacity" name="capacity" value="<?=$facility['capacity'];?>" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="operating_hours">Operating Hours</label>
-                                    <input type="text" id="operating_hours" name="operating_hours" value="<?=$facility['operating_hours'];?>" class="form-control">
+                                    <label for="operating_time">Operating Time</label>
+                                    <input type="text" id="operating_time" name="operating_time" value="<?=$facility['operating_time'];?>" class="form-control">
                                 </div>
                                 <div class="mb-3">
                                     <button type="submit" name="update_facility" class="btn btn-primary">Update Facility</button>

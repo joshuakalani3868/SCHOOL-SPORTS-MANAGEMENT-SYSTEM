@@ -59,7 +59,7 @@ if(isset($_POST['delete_facility'])) {
                             <th>Facility Type</th>
                             <th>Sports Available</th>
                             <th>Capacity</th>
-                            <th>Operating Hours</th>
+                            <th>Operating Time</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -77,7 +77,7 @@ if(isset($_POST['delete_facility'])) {
                                     <td><?= $facility['facility_type']; ?></td>
                                     <td><?= $facility['sports_available']; ?></td>
                                     <td><?= $facility['capacity']; ?></td>
-                                    <td><?= $facility['operating_hours']; ?></td>
+                                    <td><?= $facility['operating_time']; ?></td>
                                     <td>
                                         <a href="facility_view.php?id=<?= $facility['id']; ?>" class="btn btn-info btn-sm">View</a>
                                         <a href="facility_edit.php?id=<?= $facility['id']; ?>" class="btn btn-success btn-sm">Edit</a>

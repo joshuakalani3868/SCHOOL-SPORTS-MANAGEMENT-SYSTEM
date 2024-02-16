@@ -4,5 +4,9 @@ CREATE TABLE facilities (
     facility_type ENUM('indoor', 'outdoor', 'arena') NOT NULL,
     sports_available TEXT,
     capacity INT,
-    operating_hours VARCHAR(255)
+    operating_time VARCHAR(255)
 );
+
+ALTER TABLE facilities
+ADD operating_time_start TIME,
+ADD operating_time_end TIME;

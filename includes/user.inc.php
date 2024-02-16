@@ -95,6 +95,21 @@ if(isset($_POST['delete_user'])) {
         exit(0);
     }
 }
+//user profile
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $age = $_POST['age'];
+    $gender = $_POST['gender'];
+    $phone_number = $_POST['phone_number'];
+
+    // Update user profile
+    $stmt = $pdo->prepare("UPDATE users SET age = ?, gender = ?, phone_number = ? WHERE id = ?");
+    $stmt->execute([$age, $gender, $phone_number, $user_id]);
+
+    $_SESSION['message'] = "Profile updated successfully!";
+    header("Location: student_homepage.php");
+    exit();
+}
+
 
 // Check if the delete button is clicked
 /*if(isset($_POST['delete_user'])) {

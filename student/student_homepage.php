@@ -21,6 +21,7 @@
       <a href="./chartjs.php">Sport Facility</a>
       <a href="./chartjs.php">Sport Event</a>
       <a href="./chartjs.php">Results</a>
+      <a href="student_profile.php">Profile</a>
       <a href="../includes/logout.inc.php">Logout</a>
     
     </nav>

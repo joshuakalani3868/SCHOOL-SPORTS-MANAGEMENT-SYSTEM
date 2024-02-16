@@ -55,15 +55,19 @@ require '../includes/dbh.inc.php';
                                 <p class="form-control"><?=$facility['capacity'];?></p>
                             </div>
                             <div class="mb-3">
-                                <label for="operating_time">Operating Time</label>
-                                <p class="form-control"><?=$facility['operating_time'];?></p>
+                                <label for="operating_time_start">Operating Time Start</label>
+                                <p class="form-control"><?=$facility['operating_time_start'];?></p>
+                            </div>
+                            <div class="mb-3">
+                                <label for="operating_time_end">Operating Time End</label>
+                                <p class="form-control"><?=$facility['operating_time_end'];?></p>
                             </div>
                             <?php
                         }
                         else {
                             echo "<h4>No such ID Found</h4>";
                         }
-                    }
+                    } 
                     ?>
                 </div>
             </div>

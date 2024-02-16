@@ -9,15 +9,17 @@ if (isset($_POST['save_sport'])) {
     $sport_type = $_POST['sport_type'];
     $game_type = $_POST['game_type'];
     $number_of_players = $_POST['number_of_players'];
+    $facility_type = $_POST['facility_type'];
 
     // Using prepared statements to prevent SQL injection
-    $stmt = $pdo->prepare("INSERT INTO sports (sport_name, sport_type, game_type, number_of_players) VALUES (:sport_name, :sport_type, :game_type, :number_of_players)");
+    $stmt = $pdo->prepare("INSERT INTO sports (sport_name, sport_type, game_type, number_of_players, facility_type) VALUES (:sport_name, :sport_type, :game_type, :number_of_players, :facility_type)");
 
     if ($stmt) {
         $stmt->bindParam(':sport_name', $sport_name);
         $stmt->bindParam(':sport_type', $sport_type);
         $stmt->bindParam(':game_type', $game_type);
         $stmt->bindParam(':number_of_players', $number_of_players);
+        $stmt->bindParam(':facility_type', $facility_type);
 
         try {
             $stmt->execute();
@@ -44,15 +46,17 @@ if (isset($_POST['update_sport'])) {
     $sport_type = $_POST['sport_type'];
     $game_type = $_POST['game_type'];
     $number_of_players = $_POST['number_of_players'];
+    $facility_type = $_POST['facility_type'];
     
     // Using prepared statements to prevent SQL injection
-    $stmt = $pdo->prepare("UPDATE sports SET sport_name = :sport_name, sport_type = :sport_type, game_type = :game_type, number_of_players = :number_of_players WHERE id = :sport_id");
+    $stmt = $pdo->prepare("UPDATE sports SET sport_name = :sport_name, sport_type = :sport_type, game_type = :game_type, number_of_players = :number_of_players, facility_type = :facility_type WHERE id = :sport_id");
 
     if ($stmt) {
         $stmt->bindParam(':sport_name', $sport_name);
         $stmt->bindParam(':sport_type', $sport_type);
         $stmt->bindParam(':game_type', $game_type);
         $stmt->bindParam(':number_of_players', $number_of_players);
+        $stmt->bindParam(':facility_type', $facility_type);
         $stmt->bindParam(':sport_id', $sport_id);
 
         try {

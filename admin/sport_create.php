@@ -57,6 +57,13 @@ session_start();
                             <input type="number" id="number_of_players" name="number_of_players" class="form-control">
                         </div>
                         <div class="mb-3">
+                            <label for="facility_type">Facility Type</label>
+                            <select id="facility_type" name="facility_type" class="form-control">
+                                <option value="indoor">Indoor</option>
+                                <option value="outdoor">Outdoor</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <button type="submit" name="save_sport" class="btn btn-primary">Save Sport</button>
                         </div>
                     </form>

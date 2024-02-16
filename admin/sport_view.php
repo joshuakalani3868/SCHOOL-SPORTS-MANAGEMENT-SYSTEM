@@ -54,6 +54,10 @@ require '../includes/dbh.inc.php';
                                 <label for="number_of_players">Number of Players</label>
                                 <p class="form-control"><?=$sport['number_of_players'];?></p>
                             </div>
+                            <div class="mb-3">
+                                <label for="facility_type">Facility Type</label>
+                                <p class="form-control"><?=$sport['facility_type'];?></p>
+                            </div>
                             <?php
                         }
                         else {

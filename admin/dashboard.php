@@ -73,7 +73,7 @@
         </nav>
     </div>
 
-    <h1>Welcome Admin</h1>
+    <h1>Welcome</h1>
     <!-- ===== IONICONS ===== -->
     <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
     

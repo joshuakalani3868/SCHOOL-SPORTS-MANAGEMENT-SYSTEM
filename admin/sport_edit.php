@@ -72,6 +72,13 @@ require '../includes/dbh.inc.php';
                                     <input type="number" id="number_of_players" name="number_of_players" value="<?=$sport['number_of_players'];?>" class="form-control">
                                 </div>
                                 <div class="mb-3">
+                                    <label for="facility_type">Facility Type</label>
+                                    <select id="facility_type" name="facility_type" class="form-control">
+                                        <option value="indoor" <?php if($sport['facility_type'] == 'indoor') echo 'selected'; ?>>Indoor</option>
+                                        <option value="outdoor" <?php if($sport['facility_type'] == 'outdoor') echo 'selected'; ?>>Outdoor</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <button type="submit" name="update_sport" class="btn btn-primary">Update Sport</button>
                                 </div>
                             </form>

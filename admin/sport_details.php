@@ -59,6 +59,7 @@ if(isset($_POST['delete_sport'])) {
                             <th>Sport Type</th>
                             <th>Game Type</th>
                             <th>Number of Players</th>
+                            <th>Facility Type</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -76,6 +77,7 @@ if(isset($_POST['delete_sport'])) {
                                     <td><?= $sport['sport_type']; ?></td>
                                     <td><?= $sport['game_type']; ?></td>
                                     <td><?= $sport['number_of_players']; ?></td>
+                                    <td><?= $sport['facility_type']; ?></td>
                                     <td>
                                         <a href="sport_view.php?id=<?= $sport['id']; ?>" class="btn btn-info btn-sm">View</a>
                                         <a href="sport_edit.php?id=<?= $sport['id']; ?>" class="btn btn-success btn-sm">Edit</a>

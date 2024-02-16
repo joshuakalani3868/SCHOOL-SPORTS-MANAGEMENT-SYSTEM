@@ -4,7 +4,7 @@ require_once '../includes/dbh.inc.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login.php");
+    header("Location: ../admin/index.php");
     exit();
 }
 
@@ -24,12 +24,17 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Profile</title>
     <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/student_profile.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="../css/student_profile.css">
 </head>
 <body>
-    <div class="container"> <!-- Add container div -->
+    <div class="container">
         <h1>Update Profile</h1>
-        <form action="student_profile.inc.php" method="post">
+        <?php if (isset($_SESSION['message'])): ?>
+            <p><?= $_SESSION['message']; ?></p>
+            <?php unset($_SESSION['message']); ?>
+        <?php endif; ?>
+        <form action="../includes/student_profile.inc.php" method="post">
+            <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
             <label for="username">Username:</label>
             <input type="text" name="username" id="username" value="<?= $user['username'] ?>" readonly><br>
 
@@ -60,6 +65,6 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             <button type="submit">Update</button>
         </form>
-    </div> <!-- End of container div -->
+    </div>
 </body>
 </html>

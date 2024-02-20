@@ -1,0 +1,79 @@
+<?php
+// Include database connection
+include 'dbh.inc.php';
+
+// Check if a sport is selected or to be removed
+if (isset($_POST['selected_sport'])) {
+    // Retrieve selected sport ID from the POST request
+    $selected_sport = $_POST['selected_sport'];
+
+    // Assuming the user ID is stored in a session variable
+    $student_id = $_SESSION['user_id'];
+
+    try {
+        // Check if the student has already selected a sport
+        $stmt_check = $pdo->prepare("SELECT COUNT(*) FROM student_sports WHERE student_id = :student_id");
+        $stmt_check->bindParam(':student_id', $student_id);
+        $stmt_check->execute();
+        $count = $stmt_check->fetchColumn();
+
+        if ($count > 0) {
+            echo "You have already selected a sport.";
+        } else {
+            // Start a transaction
+            $pdo->beginTransaction();
+
+            // Insert selected sport into Student_Sports table
+            $stmt = $pdo->prepare("INSERT INTO student_sports (student_id, sport_id) VALUES (:student_id, :sport_id)");
+            $stmt->bindParam(':student_id', $student_id);
+            $stmt->bindParam(':sport_id', $selected_sport);
+            $stmt->execute();
+
+            // Commit the transaction
+            $pdo->commit();
+
+            // Provide feedback to the user upon successful submission
+            echo "Sport selected successfully!";
+        }
+    } catch (PDOException $e) {
+        // Rollback the transaction in case of error
+        $pdo->rollBack();
+
+        // Handle database errors
+        echo "Error: " . $e->getMessage();
+    }
+} elseif (isset($_POST['remove_sport'])) {
+    // Retrieve sport ID to be removed from the POST request
+    $remove_sport = $_POST['remove_sport'];
+
+    // Assuming the user ID is stored in a session variable
+    $student_id = $_SESSION['user_id'];
+
+    try {
+        // Start a transaction
+        $pdo->beginTransaction();
+
+        // Delete the selected sport for the current user from the Student_Sports table
+        $stmt = $pdo->prepare("DELETE FROM student_sports WHERE student_id = :student_id AND sport_id = :sport_id");
+        $stmt->bindParam(':student_id', $student_id);
+        $stmt->bindParam(':sport_id', $remove_sport);
+        $stmt->execute();
+
+        // Commit the transaction
+        $pdo->commit();
+
+        // Provide feedback to the user upon successful removal
+        echo "Sport removed successfully!";
+    } catch (PDOException $e) {
+        // Rollback the transaction in case of error
+        $pdo->rollBack();
+
+        // Handle database errors
+        echo "Error: " . $e->getMessage();
+    }
+} else {
+    // Redirect back to the sports selection page if no action is specified
+    header("Location: ../path/to/student_sport.php");
+    exit();
+}
+?>

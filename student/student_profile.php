@@ -26,6 +26,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/student_profile.css">
 </head>
+<?php include('../includes/header.inc.php'); ?>
 <body>
     <div class="container">
         <h1>Update Profile</h1>
@@ -64,6 +65,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             <input type="text" name="phone_number" id="phone_number" value="<?= $user['phone_number'] ?>" required><br>
 
             <button type="submit">Update</button>
+           
         </form>
     </div>
 </body>

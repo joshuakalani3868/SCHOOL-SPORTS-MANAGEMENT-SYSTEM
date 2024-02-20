@@ -4,21 +4,24 @@ require '../includes/dbh.inc.php';
 
 // Check if the delete button is clicked
 if(isset($_POST['delete_user'])) {
-    // Retrieve the user ID from the form
-    $user_id = mysqli_real_escape_string($con, $_POST['delete_user']);
+    $user_id = $_POST['delete_user'];
     
-    // SQL query to delete the user with the specified ID
-    $sql = "DELETE FROM users WHERE id = '$user_id'";
-    $query_run = mysqli_query($con, $sql);
+    // Using prepared statements to prevent SQL injection
+    $stmt = $pdo->prepare("DELETE FROM users WHERE id = :user_id");
 
-    if($query_run) {
-        // Set success message
-        $_SESSION['message'] = "User deleted successfully";
-        $_SESSION['msg_type'] = "danger";
+    if ($stmt) {
+        $stmt->bindParam(':user_id', $user_id);
+
+        try {
+            $stmt->execute();
+            $_SESSION['message'] = "User deleted successfully";
+            $_SESSION['msg_type'] = "danger";
+        } catch (PDOException $e) {
+            $_SESSION['message'] = "Error deleting user";
+            $_SESSION['msg_type'] = "danger";
+        }
     } else {
-        // Set error message if deletion fails
-        $_SESSION['message'] = "Error deleting user";
-        $_SESSION['msg_type'] = "danger";
+        $_SESSION['message'] = "Failed to prepare the statement!";
     }
 
     // Redirect back to user_details.php
@@ -58,8 +61,11 @@ if(isset($_POST['delete_user'])) {
                         <tr>
                             <th>ID</th>
                             <th>Username</th>
-                            <th>Password</th>
                             <th>Email</th>
+                            <th>Role</th> <!-- New role column -->
+                            <th>Age</th> <!-- New age column -->
+                            <th>Gender</th> <!-- New gender column -->
+                            <th>Phone Number</th> <!-- New phone_number column -->
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -74,8 +80,11 @@ if(isset($_POST['delete_user'])) {
                                 <tr>
                                     <td><?= $user['id']; ?></td>
                                     <td><?= $user['username']; ?></td>
-                                    <td><?= $user['pwd']; ?></td>
                                     <td><?= $user['email']; ?></td>
+                                    <td><?= $user['role']; ?></td> <!-- Display role -->
+                                    <td><?= $user['age']; ?></td> <!-- Display age -->
+                                    <td><?= $user['gender']; ?></td> <!-- Display gender -->
+                                    <td><?= $user['phone_number']; ?></td> <!-- Display phone_number -->
                                     <td>
                                         <a href="user_view.php?id=<?= $user['id']; ?>" class="btn btn-info btn-sm">View</a>
                                         <a href="user_edit.php?id=<?= $user['id']; ?>" class="btn btn-success btn-sm">Edit</a>

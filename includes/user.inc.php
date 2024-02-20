@@ -7,14 +7,24 @@ if (isset($_POST['save_user'])) {
     $name = $_POST['name'];
     $password = $_POST['pwd'];
     $email = $_POST['email'];
+    $role = $_POST['role']; // New role field
+    $age = $_POST['age']; // New age field
+    $gender = $_POST['gender']; // New gender field
+    $phone_number = $_POST['phone_number']; // New phone_number field
 
     // Using prepared statements to prevent SQL injection
-    $stmt = $pdo->prepare("INSERT INTO users (username, pwd, email) VALUES (:name, :password, :email)");
+    $stmt = $pdo->prepare("INSERT INTO users (username, pwd, email, role, age, gender, phone_number) VALUES (:name, :password, :email, :role, :age, :gender, :phone_number)");
 
     if ($stmt) {
         $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':password', $password);
+        // Update password hashing algorithm to match login.inc.php
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $stmt->bindParam(':password', $hashed_password);
         $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':role', $role); // Bind role parameter
+        $stmt->bindParam(':age', $age); // Bind age parameter
+        $stmt->bindParam(':gender', $gender); // Bind gender parameter
+        $stmt->bindParam(':phone_number', $phone_number); // Bind phone_number parameter
 
         try {
             $stmt->execute();
@@ -40,14 +50,24 @@ if (isset($_POST['update_user'])) {
     $name = $_POST['name'];
     $password = $_POST['pwd'];
     $email = $_POST['email'];
+    $role = $_POST['role']; // New role field
+    $age = $_POST['age']; // New age field
+    $gender = $_POST['gender']; // New gender field
+    $phone_number = $_POST['phone_number']; // New phone_number field
     
     // Using prepared statements to prevent SQL injection
-    $stmt = $pdo->prepare("UPDATE users SET username = :name, pwd = :password, email = :email WHERE id = :user_id");
+    $stmt = $pdo->prepare("UPDATE users SET username = :name, pwd = :password, email = :email, role = :role, age = :age, gender = :gender, phone_number = :phone_number WHERE id = :user_id");
 
     if ($stmt) {
         $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':password', $password);
+        // Update password hashing algorithm to match login.inc.php
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $stmt->bindParam(':password', $hashed_password);
         $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':role', $role); // Bind role parameter
+        $stmt->bindParam(':age', $age); // Bind age parameter
+        $stmt->bindParam(':gender', $gender); // Bind gender parameter
+        $stmt->bindParam(':phone_number', $phone_number); // Bind phone_number parameter
         $stmt->bindParam(':user_id', $user_id);
 
         try {
@@ -95,13 +115,15 @@ if(isset($_POST['delete_user'])) {
         exit(0);
     }
 }
-//user profile
+
+// Update user profile
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $user_id = $_POST['user_id'];
     $age = $_POST['age'];
     $gender = $_POST['gender'];
     $phone_number = $_POST['phone_number'];
 
-    // Update user profile
+    // Using prepared statements to prevent SQL injection
     $stmt = $pdo->prepare("UPDATE users SET age = ?, gender = ?, phone_number = ? WHERE id = ?");
     $stmt->execute([$age, $gender, $phone_number, $user_id]);
 
@@ -109,29 +131,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: student_homepage.php");
     exit();
 }
-
-
-// Check if the delete button is clicked
-/*if(isset($_POST['delete_user'])) {
-    // Retrieve the user ID from the form
-    $user_id = mysqli_real_escape_string($con, $_POST['delete_user']);
-    
-    // SQL query to delete the user with the specified ID
-    $sql = "DELETE FROM users WHERE id = '$user_id'";
-    $query_run = mysqli_query($con, $sql);
-
-    if($query_run) {
-        // Set success message
-        $_SESSION['message'] = "User deleted successfully";
-        $_SESSION['msg_type'] = "danger";
-    } else {
-        // Set error message if deletion fails
-        $_SESSION['message'] = "Error deleting user";
-        $_SESSION['msg_type'] = "danger";
-    }
-
-    // Redirect back to user_details.php
-    header("Location: user_details.php");
-    exit();
-}*/
 ?>

@@ -1,31 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student homepage</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-  <link rel="stylesheet" href="../css/student_homepage.css">
-  
-
-</head>
-
-<body>
-  <header class="header">
-    <a href="#" class="logo">SSMS</a>
-    <nav class="nav-items">
-      <a href="#">Home</a>
-      <a href="../admin/sport_view.php">Sports</a>
-      <a href="./chartjs.php">Sport Facility</a>
-      <a href="./chartjs.php">Sport Event</a>
-      <a href="./chartjs.php">Results</a>
-      <a href="student_profile.php">Profile</a>
-      <a href="../includes/logout.inc.php">Logout</a>
-    
-    </nav>
-  </header>
+<?php include('../includes/header.inc.php'); ?>
   <main>
     <div class="intro">
       <h1></h1>
@@ -66,23 +39,4 @@
       <img src="../img/pexels-pixabay-163452.jpg" alt="me">
     </div>
   </main>
-  <footer class="footer">
-    <div class="copy">&copy; 2024 School Sports Management System</div>
-    <div class="bottom-links">
-      <div class="links">
-        <span>More Info</span>
-        <a href="#">Home</a>
-        <a href="#">Sports_Event</a>
-        <a href="#">Sports_Facility</a>
-      </div>
-      <div class="links">
-        <span>Social Links</span>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-      </div>
-    </div>
-  </footer>
-</body>
-
-</html>
+  <?php include('../includes/footer.inc.php'); ?>

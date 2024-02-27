@@ -30,7 +30,7 @@ session_start();
                     <form action="../includes/sport.inc.php" method="POST">
                         <div class="mb-3">
                             <label for="sport_name">Sport Name</label>
-                            <input type="text" id="sport_name" name="sport_name" class="form-control">
+                            <input type="text" id="sport_name" name="sport_name" class="form-control" maxlength="20">
                         </div>
                         <div class="mb-3">
                             <label for="sport_type">Sport Type</label>
@@ -54,7 +54,7 @@ session_start();
                         </div>
                         <div class="mb-3">
                             <label for="number_of_players">Number of Players</label>
-                            <input type="number" id="number_of_players" name="number_of_players" class="form-control">
+                            <input type="number" id="number_of_players" name="number_of_players" class="form-control" max="20">
                         </div>
                         <div class="mb-3">
                             <label for="facility_type">Facility Type</label>

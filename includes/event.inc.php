@@ -6,18 +6,18 @@ require 'dbh.inc.php';
 // Adding event
 if (isset($_POST['save_event'])) {
     $event_name = $_POST['event_name'];
-    $type = $_POST['type'];
+    $facility_type = $_POST['facility_type'];
     $description = $_POST['description'];
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $event_time = $_POST['event_time'];
 
     // Using prepared statements to prevent SQL injection
-    $stmt = $pdo->prepare("INSERT INTO events (event_name, type, description, start_date, end_date, event_time) VALUES (:event_name, :type, :description, :start_date, :end_date, :event_time)");
+    $stmt = $pdo->prepare("INSERT INTO events (event_name, facility_type, description, start_date, end_date, event_time) VALUES (:event_name, :facility_type, :description, :start_date, :end_date, :event_time)");
 
     if ($stmt) {
         $stmt->bindParam(':event_name', $event_name);
-        $stmt->bindParam(':type', $type);
+        $stmt->bindParam(':facility_type', $facility_type);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':start_date', $start_date);
         $stmt->bindParam(':end_date', $end_date);
@@ -45,18 +45,18 @@ if (isset($_POST['save_event'])) {
 if (isset($_POST['update_event'])) {
     $event_id = $_POST['event_id']; // Assuming you have a hidden input in your form for event_id
     $event_name = $_POST['event_name'];
-    $type = $_POST['type'];
+    $facility_type = $_POST['facility_type'];
     $description = $_POST['description'];
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $event_time = $_POST['event_time'];
 
     // Using prepared statements to prevent SQL injection
-    $stmt = $pdo->prepare("UPDATE events SET event_name = :event_name, type = :type, description = :description, start_date = :start_date, end_date = :end_date, event_time = :event_time WHERE id = :event_id");
+    $stmt = $pdo->prepare("UPDATE events SET event_name = :event_name, facility_type = :facility_type, description = :description, start_date = :start_date, end_date = :end_date, event_time = :event_time WHERE id = :event_id");
 
     if ($stmt) {
         $stmt->bindParam(':event_name', $event_name);
-        $stmt->bindParam(':type', $type);
+        $stmt->bindParam(':facility_type', $facility_type);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':start_date', $start_date);
         $stmt->bindParam(':end_date', $end_date);

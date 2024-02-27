@@ -43,8 +43,8 @@ require '../includes/dbh.inc.php';
                                 <p class="form-control"><?=$event['event_name'];?></p>
                             </div>
                             <div class="mb-3">
-                                <label for="type">Type</label>
-                                <p class="form-control"><?=$event['type'];?></p>
+                                <label for="facility_type">Facility Type</label>
+                                <p class="form-control"><?=$event['facility_type'];?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="description">Description</label>

@@ -10,7 +10,7 @@ if (isset($_POST['selected_sport'])) {
     // Retrieve selected sport ID from the POST request
     $selected_sport = $_POST['selected_sport'];
 
-    // Assuming the user ID is stored in a session variable
+    // user ID is stored in a session variable
     $student_id = $_SESSION['user_id'];
 
     try {

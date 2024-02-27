@@ -26,7 +26,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/student_profile.css">
 </head>
-<?php include('../includes/header.inc.php'); ?>
+<?php include('../includes/student_header.inc.php'); ?>
 <body>
     <div class="container">
         <h1>Update Profile</h1>

@@ -43,18 +43,19 @@ require '../includes/dbh.inc.php';
                                 <input type="hidden" name="event_id" value="<?=$event['id']; ?>">
                                 <div class="mb-3">
                                     <label for="event_name">Event Name</label>
-                                    <input type="text" id="event_name" name="event_name" value="<?=$event['event_name'];?>" class="form-control">
+                                    <input type="text" id="event_name" name="event_name" value="<?=$event['event_name'];?>" class="form-control" maxlength="40">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="type">Type</label>
-                                    <select id="type" name="type" class="form-control">
-                                        <option value="indoor" <?php if($event['type'] == 'indoor') echo 'selected'; ?>>Indoor</option>
-                                        <option value="outdoor" <?php if($event['type'] == 'outdoor') echo 'selected'; ?>>Outdoor</option>
+                                    <label for="facility_type">Facility Type</label>
+                                    <select id="facility_type" name="facility_type" class="form-control">
+                                        <option value="indoor" <?php if($event['facility_type'] == 'indoor') echo 'selected'; ?>>Indoor</option>
+                                        <option value="outdoor" <?php if($event['facility_type'] == 'outdoor') echo 'selected'; ?>>Outdoor</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="description">Description</label>
-                                    <textarea id="description" name="description" class="form-control"><?=$event['description'];?></textarea>
+                                    <textarea id="description" name="description" class="form-control" maxlength="60" style="max-width: 100%; width: 100%;"><?= $event['description'];?></textarea>
+                                    <!-- Set maxlength to limit the number of characters -->
                                 </div>
                                 <div class="mb-3">
                                     <label for="start_date">Start Date</label>

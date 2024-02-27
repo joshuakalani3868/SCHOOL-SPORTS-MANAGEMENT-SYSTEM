@@ -60,7 +60,7 @@ if (isset($_POST['update_user'])) {
 
     if ($stmt) {
         $stmt->bindParam(':name', $name);
-        // Update password hashing algorithm to match login.inc.php
+        // Updated password hashing algorithm to match login.inc.php
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $stmt->bindParam(':password', $hashed_password);
         $stmt->bindParam(':email', $email);

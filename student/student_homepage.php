@@ -1,4 +1,4 @@
-<?php include('../includes/header.inc.php'); ?>
+<?php include('../includes/student_header.inc.php'); ?>
   <main>
     <div class="intro">
       <h1></h1>
@@ -39,4 +39,4 @@
       <img src="../img/pexels-pixabay-163452.jpg" alt="me">
     </div>
   </main>
-  <?php include('../includes/footer.inc.php'); ?>
+  <?php include('../includes/student_footer.inc.php'); ?>

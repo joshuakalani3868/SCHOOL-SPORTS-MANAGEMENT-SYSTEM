@@ -21,7 +21,7 @@ session_start();
         }
     </style>
 </head>
-<?php include('../includes/header.inc.php'); ?>
+<?php include('../includes/student_header.inc.php'); ?>
 <body>
     <div class="priceing-table">
         <h1>Select Sports</h1>

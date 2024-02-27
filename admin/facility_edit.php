@@ -48,7 +48,7 @@ $sports = fetchSports(); // Assuming you have a function to fetch sports from th
                                 <input type="hidden" name="facility_id" value="<?=$facility['id']; ?>">
                                 <div class="mb-3">
                                     <label for="facility_name">Facility Name</label>
-                                    <input type="text" id="facility_name" name="facility_name" value="<?=$facility['facility_name'];?>" class="form-control">
+                                    <input type="text" id="facility_name" name="facility_name" value="<?=$facility['facility_name'];?>" class="form-control" maxlenght="30">
                                 </div>
                                 <div class="mb-3">
                                     <label for="facility_type">Facility Type</label>
@@ -67,7 +67,7 @@ $sports = fetchSports(); // Assuming you have a function to fetch sports from th
                                 </div>
                                 <div class="mb-3">
                                     <label for="capacity">Capacity</label>
-                                    <input type="number" id="capacity" name="capacity" value="<?=$facility['capacity'];?>" class="form-control">
+                                    <input type="number" id="capacity" name="capacity" value="<?=$facility['capacity'];?>" class="form-control" max="1000">
                                 </div>
                                 <div class="mb-3">
                                     <label for="operating_time_start">Operating Time Start</label>

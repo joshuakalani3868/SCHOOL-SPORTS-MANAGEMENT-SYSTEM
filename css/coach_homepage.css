@@ -1,12 +1,12 @@
 /* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Monda&family=Sriracha&display=swap');
 
 /* Reset default styles */
 body {
   margin: 0;
   box-sizing: border-box;
+  font-family: Arial, sans-serif; /* Use Arial font */
 }
-
 /* Header styles */
 .header {
   display: flex;
@@ -48,7 +48,7 @@ body {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%), url("../img/pexels-pixabay-262524.jpg");
   background-size: cover;
   background-position: 100% 50%; /* Adjusted background position */
-  
+  background-repeat: no-repeat;
 }
 
 

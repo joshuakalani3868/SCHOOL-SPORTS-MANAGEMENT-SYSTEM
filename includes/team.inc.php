@@ -33,24 +33,24 @@ if ($existing_pair) {
     foreach ($students as $student) {
         $student_ids[] = $student['student_id'];
     }
-
+    // $ids=$student_ids;
     try {
         // Prepare the SQL statement
-        $sql = "INSERT INTO teams (coach_id, sport_id, student_id) VALUES (:coach_id, :sport_id, :student_id)";
+        
+        $sql = "INSERT INTO teams (coach_id, sport_id,student_id) VALUES (:coach_id, :sport_id, :student_id)";
         $stmt = $pdo->prepare($sql);
 
         // Bind parameters
         $stmt->bindParam(':coach_id', $coach_id);
         $stmt->bindParam(':sport_id', $sport_id);
-
         // Insert each student ID in the same row
         foreach ($student_ids as $student_id) {
             $stmt->bindParam(':student_id', $student_id);
             $stmt->execute();
         }
 
-        $_SESSION['message'] = "Teams created successfully!";
-        header("Location: ../admin/team_details.php");
+        $_SESSION['message'] = $ids;
+        header("Location: ../admin/team_details.php ?error=".$student_ids);
         exit();
     } catch (PDOException $e) {
         $_SESSION['message'] = "Failed to create Team: " . $e->getMessage();

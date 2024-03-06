@@ -62,14 +62,7 @@ if (isset($_POST['sport_id'])) {
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="student_id">Student</label>
-                            <select id="student_id" name="student_id" class="form-control">
-                                <?php foreach ($students as $student): ?>
-                                    <option value="<?php echo $sport['student_id']; ?>"><?php echo $sport['sport_name']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                        
                     
                         <div class="mb-3">
                             <button type="submit" name="save_team" class="btn btn-primary">Save Team</button>

@@ -1,5 +1,5 @@
 -- Create Coach_Student Table
-CREATE TABLE IF NOT EXISTS Coach_Student (
+CREATE TABLE IF NOT EXISTS teams (
     id INT AUTO_INCREMENT PRIMARY KEY,
     coach_id INT NOT NULL,
     student_id INT NOT NULL,

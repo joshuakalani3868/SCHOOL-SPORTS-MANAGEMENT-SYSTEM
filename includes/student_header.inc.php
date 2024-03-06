@@ -9,11 +9,16 @@
   <link rel="stylesheet" href="../css/student_homepage.css">
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/font_size.css">
+  <!-- Include Bootstrap CSS -->
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  
 </head>
+
 <body>
   <header class="header">
     <a href="#" class="logo">SSMS</a>
-    <nav class="nav-items">
+    <nav class="nav nav-items">
       <a href="../student/student_homepage.php">Home</a>
       <a href="student_sport.php">Sports</a>
       <a href="../student/student_facility.php">Sport Facility</a>

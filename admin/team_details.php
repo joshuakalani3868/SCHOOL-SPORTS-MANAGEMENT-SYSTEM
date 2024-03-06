@@ -55,7 +55,7 @@ if(isset($_POST['delete_team'])) {
                         </div>
                     </h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body  table-responsive">
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
@@ -78,10 +78,12 @@ try {
     $stmt->execute();
     
     if ($stmt->rowCount() > 0) {
+        $count=0;
         while ($team = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $count=$count+1;
 ?>
             <tr>
-                <td><?= $team['id']; ?></td>
+                <td><?= $count; ?></td>
                 <td><?= $team['coach_name']; ?></td>
                 <td><?= $team['sport_name']; ?></td>
                 <td><?= $team['student_names']; ?></td>

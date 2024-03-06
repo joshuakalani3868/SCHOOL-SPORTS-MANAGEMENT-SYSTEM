@@ -88,7 +88,7 @@ try {
                 <td><?= $team['sport_name']; ?></td>
                 <td><?= $team['student_names']; ?></td>
                 <td>
-                    <a href="team_view.php?id=<?= $team['id']; ?>" class="btn btn-info btn-sm">View</a>
+                    
                     <a href="team_edit.php?id=<?= $team['id']; ?>" class="btn btn-success btn-sm">Edit</a>
                     <form action="team_details.php" method="POST" class="d-inline">
                         <input type="hidden" name="delete_team" value="<?= $team['id']; ?>">

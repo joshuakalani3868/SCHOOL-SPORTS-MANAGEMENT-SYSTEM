@@ -6,3 +6,11 @@ CREATE TABLE users (
     created_at DATETIME  NOT NULL DEFAULT CURRENT_TIME,
     PRIMARY KEY (id)
     );
+
+
+    ALTER TABLE users
+    ADD COLUMN role VARCHAR(50) NOT NULL DEFAULT 'student';
+
+    ALTER TABLE users ADD COLUMN age INT;
+    ALTER TABLE users ADD COLUMN gender VARCHAR(10);
+    ALTER TABLE users ADD COLUMN phone_number VARCHAR(20);

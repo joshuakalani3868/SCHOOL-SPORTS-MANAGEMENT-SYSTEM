@@ -7,3 +7,5 @@ CREATE TABLE events (
     end_date DATE NOT NULL,
     event_time TIME NOT NULL
 );
+
+ALTER TABLE events CHANGE COLUMN type facility_type ENUM('indoor', 'outdoor') NOT NULL;

@@ -33,24 +33,24 @@ if ($existing_pair) {
     foreach ($students as $student) {
         $student_ids[] = $student['student_id'];
     }
-    // $ids=$student_ids;
+
     try {
         // Prepare the SQL statement
-        
-        $sql = "INSERT INTO teams (coach_id, sport_id,student_id) VALUES (:coach_id, :sport_id, :student_id)";
+        $sql = "INSERT INTO teams (coach_id, sport_id, student_id) VALUES (:coach_id, :sport_id, :student_id)";
         $stmt = $pdo->prepare($sql);
 
         // Bind parameters
         $stmt->bindParam(':coach_id', $coach_id);
         $stmt->bindParam(':sport_id', $sport_id);
+
         // Insert each student ID in the same row
         foreach ($student_ids as $student_id) {
             $stmt->bindParam(':student_id', $student_id);
             $stmt->execute();
         }
 
-        $_SESSION['message'] = $ids;
-        header("Location: ../admin/team_details.php ?error=".$student_ids);
+        $_SESSION['message'] = "Teams created successfully!";
+        header("Location: ../admin/team_details.php");
         exit();
     } catch (PDOException $e) {
         $_SESSION['message'] = "Failed to create Team: " . $e->getMessage();
@@ -71,24 +71,58 @@ if ($existing_pair) {
     exit();
 }*/
 
-
-
 // Update Team
 if (isset($_POST['update_team'])) {
     $team_id = $_POST['team_id'];
     $coach_id = $_POST['coach_id'];
     $sport_id = $_POST['sport_id'];
 
-    // Using prepared statements to prevent SQL injection
-    $stmt = $pdo->prepare("UPDATE teams SET coach_id = :coach_id, sport_id = :sport_id WHERE id = :team_id");
+    // Fetch students who selected the updated sport
+    $students = fetchStudentsBySport($sport_id);
 
-    if ($stmt) {
-        $stmt->bindParam(':coach_id', $coach_id);
-        $stmt->bindParam(':sport_id', $sport_id);
-        $stmt->bindParam(':team_id', $team_id);
+    // Check if there are any students for the updated sport
+    if (empty($students)) {
+        $_SESSION['message'] = "No students found for the selected sport.";
+        header("Location: ../admin/team_details.php");
+        exit();
+    }
+
+    // Prepare the array to hold student IDs
+    $student_ids = array();
+    foreach ($students as $student) {
+        $student_ids[] = $student['student_id'];
+    }
+
+    // Using prepared statements to prevent SQL injection
+    $updateStmt = $pdo->prepare("UPDATE teams SET coach_id = :coach_id, sport_id = :sport_id WHERE id = :team_id");
+
+    if ($updateStmt) {
+        $updateStmt->bindParam(':coach_id', $coach_id);
+        $updateStmt->bindParam(':sport_id', $sport_id);
+        $updateStmt->bindParam(':team_id', $team_id);
 
         try {
-            $stmt->execute();
+            $updateStmt->execute();
+
+            // Delete existing team-student associations for the updated team
+            $deleteStmt = $pdo->prepare("DELETE FROM teams WHERE id = :team_id");
+            $deleteStmt->bindParam(':team_id', $team_id);
+            $deleteStmt->execute();
+
+            // Insert updated team-student associations, avoiding duplicates
+            $insertStmt = $pdo->prepare("INSERT INTO teams (coach_id, sport_id, student_id) VALUES (:coach_id, :sport_id, :student_id)");
+            $insertStmt->bindParam(':coach_id', $coach_id);
+            $insertStmt->bindParam(':sport_id', $sport_id);
+
+            foreach ($student_ids as $student_id) {
+                // Check if the association already exists before inserting
+                $existing_pair = checkTeamAssociation($team_id, $coach_id, $sport_id, $student_id);
+                if (!$existing_pair) {
+                    $insertStmt->bindParam(':student_id', $student_id);
+                    $insertStmt->execute();
+                }
+            }
+
             $_SESSION['message'] = "Team updated successfully!";
             header("Location: ../admin/team_details.php");
             exit();
@@ -103,6 +137,31 @@ if (isset($_POST['update_team'])) {
         exit();
     }
 }
+
+// Function to check if team association already exists
+function checkTeamAssociation($team_id, $coach_id, $sport_id, $student_id)
+{
+    global $pdo;
+
+    try {
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM teams WHERE id != :team_id AND coach_id = :coach_id AND sport_id = :sport_id AND student_id = :student_id");
+        $stmt->bindParam(':team_id', $team_id);
+        $stmt->bindParam(':coach_id', $coach_id);
+        $stmt->bindParam(':sport_id', $sport_id);
+        $stmt->bindParam(':student_id', $student_id);
+        $stmt->execute();
+
+        $count = $stmt->fetchColumn();
+
+        return $count > 0;
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return false;
+    }
+}
+
+
+
 
 // Delete Team
 if (isset($_POST['delete_team'])) {

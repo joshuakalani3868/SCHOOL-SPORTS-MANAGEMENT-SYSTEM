@@ -108,6 +108,7 @@ if(isset($_POST['update_team'])) {
                                 <?php endforeach; ?>
                             </select>
                         </div>
+                        
     
                         <div class="mb-3">
                             <button type="submit" name="update_team" class="btn btn-primary">Update Team</button>

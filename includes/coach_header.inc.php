@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +20,7 @@
     <a href="#" class="logo">SSMS</a>
     <nav class="nav-items">
     <a href="../coach/coach_homepage.php">Home</a>
-      <a href="./chartjs.php">Sports Team</a>
+      <a href="../coach/coach_team.php">Sports Team</a>
       <a href="../coach/coach_facility.php">Sport Facility</a>
       <a href="../coach/coach_event.php">Sport Event</a>
       <a href="./chartjs.php">Results</a>

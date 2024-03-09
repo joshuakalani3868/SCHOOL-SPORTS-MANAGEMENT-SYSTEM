@@ -1,0 +1,24 @@
+{
+    "name": "school/sports-management-system",
+    "description": "A web-based sports management system for schools.",
+    "type": "library",
+    "require": {
+        "tecnickcom/tcpdf": "^6.6"
+    },
+    "require-dev": {
+        "tecnickcom/tcpdf": "^6.6"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "School\\SportsManagementSystem\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "joshuakalani3868",
+            "email": "128877147+joshuakalani3868@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}

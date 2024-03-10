@@ -19,6 +19,7 @@
     <nav class="nav nav-items">
       <a href="../student/student_homepage.php">Home</a>
       <a href="student_sport.php">Sports</a>
+      <a href="../student/teams_roster.php">Team Roster</a>
       <a href="../student/student_facility.php">Sport Facility</a>
       <a href="../student/student_event.php">Sport Event</a>
       <a href="./chartjs.php">Results</a>

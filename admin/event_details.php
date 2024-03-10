@@ -64,7 +64,7 @@ if(isset($_POST['delete_event'])) {
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>NO</th>
                             <th>Event Name</th>
                             <th>Facility Type</th>
                             <th>Description</th>
@@ -80,10 +80,12 @@ if(isset($_POST['delete_event'])) {
                         $query_run = mysqli_query($con, $query);
 
                         if (mysqli_num_rows($query_run) > 0) {
+                            $count = 0; // Initialize counter variable
                             foreach ($query_run as $event) {
-                                ?>
+                                $count++; // Increment counter for each iteration
+                        ?>
                                 <tr>
-                                    <td><?= $event['id']; ?></td>
+                                    <td><?= $count; ?></td> <!-- Display entry number -->
                                     <td><?= $event['event_name']; ?></td>
                                     <td><?= $event['facility_type']; ?></td>
                                     <td><?= $event['description']; ?></td>
@@ -100,12 +102,13 @@ if(isset($_POST['delete_event'])) {
                                         </form>
                                     </td>
                                 </tr>
-                                <?php
+                        <?php
                             } 
                         } else {
                             echo "<h5>No Record Found!</h5>";
                         }
                         ?>
+
                         </tbody>
                     </table>
                 </div>

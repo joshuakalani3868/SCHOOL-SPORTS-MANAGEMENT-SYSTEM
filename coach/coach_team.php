@@ -11,7 +11,7 @@ require '../includes/team.inc.php';
 // Check if user is logged in and is a coach
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'coach') {
     // Redirect unauthorized users to login page
-    header("Location: login.php");
+    header("Location: ../admin/index.php");
     exit();
 }
 

@@ -54,7 +54,7 @@ if(isset($_POST['delete_facility'])) {
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>NO</th>
                             <th>Facility Name</th>
                             <th>Facility Type</th>
                             <th>Sports Available</th>
@@ -70,10 +70,12 @@ if(isset($_POST['delete_facility'])) {
                         $query_run = mysqli_query($con, $query);
 
                         if (mysqli_num_rows($query_run) > 0) {
-                            foreach ($query_run as $facility) {
+                            $count = 0; // Initialize count variable
+                            while ($facility = mysqli_fetch_assoc($query_run)) {
+                                $count++; // Increment count for each iteration
                                 ?>
                                 <tr>
-                                    <td><?= $facility['id']; ?></td>
+                                    <td><?= $count; ?></td> <!-- Display the count -->
                                     <td><?= $facility['facility_name']; ?></td>
                                     <td><?= $facility['facility_type']; ?></td>
                                     <td><?= $facility['sports_available']; ?></td>
@@ -91,11 +93,12 @@ if(isset($_POST['delete_facility'])) {
                                     </td>
                                 </tr>
                                 <?php
-                            } 
-                        } else {
-                            echo "<h5>No Record Found!</h5>";
-                        }
-                        ?>
+    }
+} else {
+    echo "<tr><td colspan='8'>No Record Found!</td></tr>";
+}
+?>
+
                         </tbody>
                     </table>
                 </div>

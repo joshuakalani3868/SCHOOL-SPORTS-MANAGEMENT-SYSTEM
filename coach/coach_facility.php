@@ -24,7 +24,7 @@ require '../includes/dbh.inc.php';
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>NO</th>
                             <th>Facility Name</th>
                             <th>Facility Type</th>
                             <th>Sports Available</th>
@@ -39,10 +39,12 @@ require '../includes/dbh.inc.php';
                         $query_run = mysqli_query($con, $query);
 
                         if (mysqli_num_rows($query_run) > 0) {
+                            $count = 0; // Initialize counter variable
                             foreach ($query_run as $facility) {
-                                ?>
+                                $count++; // Increment counter for each iteration
+                        ?>
                                 <tr>
-                                    <td><?= $facility['id']; ?></td>
+                                    <td><?= $count; ?></td> <!-- Display entry number -->
                                     <td><?= $facility['facility_name']; ?></td>
                                     <td><?= $facility['facility_type']; ?></td>
                                     <td><?= $facility['sports_available']; ?></td>
@@ -50,12 +52,13 @@ require '../includes/dbh.inc.php';
                                     <td><?= $facility['operating_time_start']; ?></td>
                                     <td><?= $facility['operating_time_end']; ?></td>
                                 </tr>
-                                <?php
+                        <?php
                             }
                         } else {
                             echo "<h5>No Record Found!</h5>";
                         }
                         ?>
+
                         </tbody>
                     </table>
                 </div>

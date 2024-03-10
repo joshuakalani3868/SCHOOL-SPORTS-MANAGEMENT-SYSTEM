@@ -21,20 +21,22 @@ function generatePDF($data) {
     $pdf->AddPage();
 
     // Set some content to display
-    $content = '<h1>Coach Team Details</h1>';
-    $content .= '<table border="1">';
-    $content .= '<tr><th>ID</th><th>Coach Name</th><th>Sport Name</th><th>Student Names</th></tr>';
+$content = '<h1>Coach Team Details</h1>';
+$content .= '<table border="1" style="border-collapse: collapse; width: 100%;">'; // Added style attributes for table
+$content .= '<tr><th style="padding: 10px;">N.O</th><th style="padding: 10px;">Coach Name</th><th style="padding: 10px;">Sport Name</th><th style="padding: 10px;">Student Names</th></tr>'; // Added padding for table headers
 
-    foreach ($data as $team) {
-        $content .= '<tr>';
-        $content .= '<td>' . $team['id'] . '</td>';
-        $content .= '<td>' . $team['coach_name'] . '</td>';
-        $content .= '<td>' . $team['sport_name'] . '</td>';
-        $content .= '<td><ol><li>' . str_replace(', ', '</li><li>', $team['student_names']) . '</li></ol></td>';
-        $content .= '</tr>';
-    }
+foreach ($data as $team) {
+    $content .= '<tr>';
+    $content .= '<td style="padding: 10px;">' . $team['id'] . '</td>'; // Added padding for table cells
+    $content .= '<td style="padding: 10px;">' . $team['coach_name'] . '</td>';
+    $content .= '<td style="padding: 10px;">' . $team['sport_name'] . '</td>';
+    $content .= '<td style="padding: 10px;"><ol style="margin: 0; padding-left: 20px;">'; // Added padding and margin for ordered list
+    $content .= '<li style="margin-bottom: 5px;">' . str_replace(', ', '</li><li style="margin-bottom: 5px;">', $team['student_names']) . '</li>';
+    $content .= '</ol></td>';
+    $content .= '</tr>';
+}
 
-    $content .= '</table>';
+$content .= '</table>';
 
     // Print content onto the PDF
     $pdf->writeHTML($content, true, false, true, false, '');

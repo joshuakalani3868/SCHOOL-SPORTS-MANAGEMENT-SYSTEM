@@ -16,11 +16,12 @@
 </head>
 
 <body>
-  <header class="header">
+  <header class="header na">
     <a href="#" class="logo">SSMS</a>
-    <nav class="nav-items">
-    <a href="../coach/coach_homepage.php">Home</a>
+    <nav class="nav-items ">
+      <a href="../coach/coach_homepage.php">Home</a>
       <a href="../coach/coach_team.php">Sports Team</a>
+      <a href="../coach/teams_roster_details.php">Teams Roster</a>
       <a href="../coach/coach_facility.php">Sport Facility</a>
       <a href="../coach/coach_event.php">Sport Event</a>
       <a href="./chartjs.php">Results</a>

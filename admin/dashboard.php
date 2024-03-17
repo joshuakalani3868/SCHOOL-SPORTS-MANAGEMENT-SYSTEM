@@ -38,11 +38,10 @@
                             <a href="event_details.php" class="collapse__sublink">Sports_Events</a>
                             <a href="team_details.php" class="collapse__sublink">Sports_Team</a>
                             <a href="result_details.php" class="collapse__sublink">Results</a>
-                            <a href="#" class="collapse__sublink">Reports</a>
                         </ul>
                     </div>
 
-                    <a href="#" class="nav__link">
+                    <a href="report_details.php" class="nav__link">
                         <ion-icon name="pie-chart-outline" class="nav__icon"></ion-icon>
                         <span class="nav__name">Reports</span>
                     </a>

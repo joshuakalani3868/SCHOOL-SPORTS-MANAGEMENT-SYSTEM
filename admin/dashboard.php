@@ -37,7 +37,7 @@
                             <a href="facility_details.php" class="collapse__sublink">Sports_Facility</a>
                             <a href="event_details.php" class="collapse__sublink">Sports_Events</a>
                             <a href="team_details.php" class="collapse__sublink">Sports_Team</a>
-                            <a href="#" class="collapse__sublink">Results</a>
+                            <a href="result_details.php" class="collapse__sublink">Results</a>
                             <a href="#" class="collapse__sublink">Reports</a>
                         </ul>
                     </div>

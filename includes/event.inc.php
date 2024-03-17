@@ -6,18 +6,18 @@ require 'dbh.inc.php';
 // Adding event
 if (isset($_POST['save_event'])) {
     $event_name = $_POST['event_name'];
-    $facility_type = $_POST['facility_type'];
+    $facility_name = $_POST['facility_name']; // Add facility_name
     $description = $_POST['description'];
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $event_time = $_POST['event_time'];
 
     // Using prepared statements to prevent SQL injection
-    $stmt = $pdo->prepare("INSERT INTO events (event_name, facility_type, description, start_date, end_date, event_time) VALUES (:event_name, :facility_type, :description, :start_date, :end_date, :event_time)");
+    $stmt = $pdo->prepare("INSERT INTO events (event_name, facility_name, description, start_date, end_date, event_time) VALUES (:event_name, :facility_name, :description, :start_date, :end_date, :event_time)");
 
     if ($stmt) {
         $stmt->bindParam(':event_name', $event_name);
-        $stmt->bindParam(':facility_type', $facility_type);
+        $stmt->bindParam(':facility_name', $facility_name);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':start_date', $start_date);
         $stmt->bindParam(':end_date', $end_date);
@@ -45,18 +45,18 @@ if (isset($_POST['save_event'])) {
 if (isset($_POST['update_event'])) {
     $event_id = $_POST['event_id']; // Assuming you have a hidden input in your form for event_id
     $event_name = $_POST['event_name'];
-    $facility_type = $_POST['facility_type'];
+    $facility_name = $_POST['facility_name']; // Add facility_name
     $description = $_POST['description'];
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $event_time = $_POST['event_time'];
 
     // Using prepared statements to prevent SQL injection
-    $stmt = $pdo->prepare("UPDATE events SET event_name = :event_name, facility_type = :facility_type, description = :description, start_date = :start_date, end_date = :end_date, event_time = :event_time WHERE id = :event_id");
+    $stmt = $pdo->prepare("UPDATE events SET event_name = :event_name, facility_name = :facility_name, description = :description, start_date = :start_date, end_date = :end_date, event_time = :event_time WHERE id = :event_id");
 
     if ($stmt) {
         $stmt->bindParam(':event_name', $event_name);
-        $stmt->bindParam(':facility_type', $facility_type);
+        $stmt->bindParam(':facility_name', $facility_name);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':start_date', $start_date);
         $stmt->bindParam(':end_date', $end_date);
@@ -82,7 +82,7 @@ if (isset($_POST['update_event'])) {
 }
 
 // Delete event
-if(isset($_POST['delete_event'])) {
+if (isset($_POST['delete_event'])) {
     $event_id = $_POST['delete_event'];
 
     // Using prepared statements to prevent SQL injection
@@ -108,3 +108,18 @@ if(isset($_POST['delete_event'])) {
         exit(0);
     }
 }
+
+// Function to fetch facilities from the database
+function fetchFacilities() {
+    global $pdo;
+
+    try {
+        $stmt = $pdo->query("SELECT id, facility_name FROM facilities"); // Adjust query according to your database structure
+        $facilities = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $facilities;
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return array();
+    }
+}
+

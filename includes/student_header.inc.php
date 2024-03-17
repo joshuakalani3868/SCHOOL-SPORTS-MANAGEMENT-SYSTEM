@@ -22,7 +22,7 @@
       <a href="../student/teams_roster.php">Team Roster</a>
       <a href="../student/student_facility.php">Sport Facility</a>
       <a href="../student/student_event.php">Sport Event</a>
-      <a href="./chartjs.php">Results</a>
+      <a href="../student/student_result.php">Results</a>
       <a href="../student/student_profile.php">Profile</a>
       <a href="../includes/logout.inc.php">Logout</a>
     </nav>

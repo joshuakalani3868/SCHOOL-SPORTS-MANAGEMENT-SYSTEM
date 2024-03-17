@@ -44,7 +44,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'coach') {
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>N.O</th>
                             <th>Coach Name</th>
                             <th>Sport Name</th>
                             <th>Student Names</th>

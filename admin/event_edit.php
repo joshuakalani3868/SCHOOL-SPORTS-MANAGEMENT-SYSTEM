@@ -46,10 +46,17 @@ require '../includes/dbh.inc.php';
                                     <input type="text" id="event_name" name="event_name" value="<?=$event['event_name'];?>" class="form-control" maxlength="40">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="facility_type">Facility Type</label>
-                                    <select id="facility_type" name="facility_type" class="form-control">
-                                        <option value="indoor" <?php if($event['facility_type'] == 'indoor') echo 'selected'; ?>>Indoor</option>
-                                        <option value="outdoor" <?php if($event['facility_type'] == 'outdoor') echo 'selected'; ?>>Outdoor</option>
+                                    <label for="facility_name">Facility Name</label>
+                                    <select id="facility_name" name="facility_name" class="form-control">
+                                        <!-- Populate this select dropdown with facilities from your database -->
+                                        <?php
+                                        $facilities_query = "SELECT id, facility_name FROM facilities";
+                                        $facilities_result = mysqli_query($con, $facilities_query);
+                                        while ($facility = mysqli_fetch_assoc($facilities_result)) {
+                                            $selected = ($event['facility_name'] == $facility['id']) ? 'selected' : '';
+                                            echo "<option value='" . $facility['id'] . "' $selected>" . $facility['facility_name'] . "</option>";
+                                        }
+                                        ?>
                                     </select>
                                 </div>
                                 <div class="mb-3">

@@ -13,7 +13,7 @@ require '../includes/dbh.inc.php';
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>Event View Details</title>
+    <title>Result View Details</title>
 </head>
 <body>
 <div class="container mt-5">
@@ -21,57 +21,53 @@ require '../includes/dbh.inc.php';
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Event View Details
-                        <a href="event_details.php" class="btn btn-danger float-end">BACK</a>
+                    <h4>Result View Details
+                        <a href="result_details.php" class="btn btn-danger float-end">BACK</a>
                     </h4>
                 </div>
                 <div class="card-body">
                     <?php
                     if(isset($_GET['id']))
                     {
-                        $event_id = mysqli_real_escape_string($con, $_GET['id']);
-                        $query ="SELECT e.*, f.facility_name FROM events e LEFT JOIN facilities f ON e.facility_name = f.id WHERE e.id='$event_id'";
+                        $result_id = mysqli_real_escape_string($con, $_GET['id']);
+                        $query ="SELECT * FROM results WHERE id='$result_id'";
                         $query_run = mysqli_query($con, $query);
 
-                        if(mysqli_num_rows($query_run) > 0)
+                        if(mysqli_num_rows($query_run) >0)
                         {
-                            $event = mysqli_fetch_array($query_run);
+                            $result = mysqli_fetch_array($query_run);
                             ?>
-                            <input type="hidden" name="event_id" value="<?=$event['id']; ?>">
+                            <input type="hidden" name="result_id" value="<?=$result['id']; ?>">
                             <div class="mb-3">
-                                <label for="event_name">Event Name</label>
-                                <p class="form-control"><?=$event['event_name'];?></p>
+                                <label for="event_name">Event</label>
+                                <p class="form-control"><?=$result['event_name'];?></p>
                             </div>
                             <div class="mb-3">
-                                <label for="facility_name">Facility Name</label>
-                                <p class="form-control"><?=$event['facility_name'];?></p>
+                                <label for="sport_name">Sport</label>
+                                <p class="form-control"><?=$result['sport_name'];?></p>
                             </div>
                             <div class="mb-3">
-                                <label for="facility_type">Facility Type</label>
-                                <p class="form-control"><?=$event['facility_type'];?></p>
+                                <label for="student_name">Student</label>
+                                <p class="form-control"><?=$result['student_name'];?></p>
                             </div>
                             <div class="mb-3">
-                                <label for="description">Description</label>
-                                <p class="form-control"><?=$event['description'];?></p>
+                                <label for="sport_type">Sport Type</label>
+                                <p class="form-control"><?=$result['sport_type'];?></p>
                             </div>
                             <div class="mb-3">
-                                <label for="start_date">Start Date</label>
-                                <p class="form-control"><?=$event['start_date'];?></p>
+                                <label for="rank">Rank</label>
+                                <p class="form-control"><?=$result['rank'];?></p>
                             </div>
                             <div class="mb-3">
-                                <label for="end_date">End Date</label>
-                                <p class="form-control"><?=$event['end_date'];?></p>
-                            </div>
-                            <div class="mb-3">
-                                <label for="event_time">Event Time</label>
-                                <p class="form-control"><?=$event['event_time'];?></p>
+                                <label for="score_line">Score Line</label>
+                                <p class="form-control"><?=$result['score_line'];?></p>
                             </div>
                             <?php
                         }
                         else {
                             echo "<h4>No such ID Found</h4>";
                         }
-                    }
+                    } 
                     ?>
                 </div>
             </div>

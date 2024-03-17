@@ -33,10 +33,17 @@ session_start();
                             <input type="text" id="event_name" name="event_name" class="form-control" maxlength="40">
                         </div>
                         <div class="mb-3">
-                            <label for="facility_type">Facility Type</label>
-                            <select id="facility_type" name="facility_type" class="form-control">
-                                <option value="indoor">Indoor</option>
-                                <option value="outdoor">Outdoor</option>
+                            <label for="facility_name">Facility Name</label>
+                            <select id="facility_name" name="facility_name" class="form-control">
+                                <!-- Populate this select dropdown with facilities from your database -->
+                                <?php
+                                require '../includes/dbh.inc.php';
+                                $query = "SELECT id, facility_name FROM facilities";
+                                $result = mysqli_query($con, $query);
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<option value='" . $row['id'] . "'>" . $row['facility_name'] . "</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="mb-3">

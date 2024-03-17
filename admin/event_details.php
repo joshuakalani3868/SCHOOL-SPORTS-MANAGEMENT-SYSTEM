@@ -2,29 +2,43 @@
 session_start();
 require '../includes/dbh.inc.php';
 
+// Function to delete event
+function deleteEvent($pdo, $event_id) {
+    // Using prepared statements to prevent SQL injection
+    $stmt = $pdo->prepare("DELETE FROM events WHERE id = :event_id");
+
+    if ($stmt) {
+        // Bind parameter
+        $stmt->bindParam(':event_id', $event_id);
+
+        // Execute the statement
+        try {
+            $stmt->execute();
+            $_SESSION['message'] = "Event deleted successfully!";
+            $_SESSION['msg_type'] = "danger";
+            header("Location: event_details.php");
+            exit(0);
+        } catch (PDOException $e) {
+            $_SESSION['message'] = "Failed to delete event! Error: " . $e->getMessage();
+            $_SESSION['msg_type'] = "danger";
+            header("Location: event_details.php");
+            exit(0);
+        }
+    } else {
+        $_SESSION['message'] = "Failed to prepare the statement!";
+        $_SESSION['msg_type'] = "danger";
+        header("Location: event_details.php");
+        exit(0);
+    }
+}
+
 // Check if the delete button is clicked
 if(isset($_POST['delete_event'])) {
     // Retrieve the event ID from the form
-    $event_id = mysqli_real_escape_string($con, $_POST['delete_event']);
-    
-    // SQL query to delete the event with the specified ID
-    $sql = "DELETE FROM events WHERE id = '$event_id'";
-    $query_run = mysqli_query($con, $sql);
-
-    if($query_run) {
-        // Set success message
-        $_SESSION['message'] = "Event deleted successfully";
-        $_SESSION['msg_type'] = "danger";
-    } else {
-        // Set error message if deletion fails
-        $_SESSION['message'] = "Error deleting event";
-        $_SESSION['msg_type'] = "danger";
-    }
-
-    // Redirect back to event_details.php
-    header("Location: event_details.php");
-    exit();
+    $event_id = $_POST['delete_event'];
+    deleteEvent($pdo, $event_id);
 }
+
 ?>
 
 <!doctype html>
@@ -52,65 +66,73 @@ if(isset($_POST['delete_event'])) {
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                <h4 class="d-flex justify-content-between align-items-center">
-                <span>Event Details</span>
-                  <div>
-                   <a href="dashboard.php" class="btn btn-primary me-2">Home</a>
-                   <a href="event_create.php" class="btn btn-primary">Add Event</a>
-                   </div>
-                </h4>
+                    <h4 class="d-flex justify-content-between align-items-center">
+                        <span>Event Details</span>
+                        <div>
+                            <a href="dashboard.php" class="btn btn-primary me-2">Home</a>
+                            <a href="event_create.php" class="btn btn-primary">Add Event</a>
+                        </div>
+                    </h4>
                 </div>
-                <div class="card-body table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>Event Name</th>
-                            <th>Facility Type</th>
-                            <th>Description</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Event Time</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $query = "SELECT * FROM events";
-                        $query_run = mysqli_query($con, $query);
+                <div class="card-body">
+                    <div class="table-responsive">
+                    <div style="overflow-x: auto; width: 1500px;">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>Event Name</th>
+                                        <th>Facility Name</th> <!-- Modified: Display Facility Name -->
+                                        <th>Facility Type</th>
+                                        <th>Description</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Event Time</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $query = "SELECT e.*, f.facility_name 
+                                            FROM events e
+                                            INNER JOIN facilities f ON e.facility_name = f.id"; // Adjusted query to join with facilities table
+                                    $query_run = $pdo->query($query);
 
-                        if (mysqli_num_rows($query_run) > 0) {
-                            $count = 0; // Initialize counter variable
-                            foreach ($query_run as $event) {
-                                $count++; // Increment counter for each iteration
-                        ?>
-                                <tr>
-                                    <td><?= $count; ?></td> <!-- Display entry number -->
-                                    <td><?= $event['event_name']; ?></td>
-                                    <td><?= $event['facility_type']; ?></td>
-                                    <td><?= $event['description']; ?></td>
-                                    <td><?= $event['start_date']; ?></td>
-                                    <td><?= $event['end_date']; ?></td>
-                                    <td><?= $event['event_time']; ?></td>
-                                    <td>
-                                        <a href="event_view.php?id=<?= $event['id']; ?>" class="btn btn-info btn-sm">View</a>
-                                        <a href="event_edit.php?id=<?= $event['id']; ?>" class="btn btn-success btn-sm">Edit</a>
-                                        <!-- Delete Button and Form -->
-                                        <form action="event_details.php" method="POST" class="d-inline">
-                                            <input type="hidden" name="delete_event" value="<?= $event['id']; ?>">
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                        <?php
-                            } 
-                        } else {
-                            echo "<h5>No Record Found!</h5>";
-                        }
-                        ?>
+                                    if ($query_run->rowCount() > 0) {
+                                        $count = 0; // Initialize counter variable
+                                        foreach ($query_run as $event) {
+                                            $count++; // Increment counter for each iteration
+                                    ?>
+                                                <tr>
+                                                    <td><?= $count; ?></td> <!-- Display entry number -->
+                                                    <td><?= $event['event_name']; ?></td>
+                                                    <td><?= $event['facility_name']; ?></td> <!-- Display facility_name -->
+                                                    <td><?= $event['facility_type']; ?></td>
+                                                    <td><?= $event['description']; ?></td>
+                                                    <td><?= $event['start_date']; ?></td>
+                                                    <td><?= $event['end_date']; ?></td>
+                                                    <td><?= $event['event_time']; ?></td>
+                                                    <td>
+                                                        <a href="event_view.php?id=<?= $event['id']; ?>" class="btn btn-info btn-sm">View</a>
+                                                        <a href="event_edit.php?id=<?= $event['id']; ?>" class="btn btn-success btn-sm">Edit</a>
+                                                        <!-- Delete Button and Form -->
+                                                        <form action="event_details.php" method="POST" class="d-inline">
+                                                            <input type="hidden" name="delete_event" value="<?= $event['id']; ?>">
+                                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                    <?php
+                                        }
+                                    } else {
+                                        echo "<h5>No Record Found!</h5>";
+                                    }
+                                    ?>
 
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

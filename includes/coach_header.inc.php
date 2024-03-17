@@ -24,7 +24,7 @@
       <a href="../coach/teams_roster_details.php">Teams Roster</a>
       <a href="../coach/coach_facility.php">Sport Facility</a>
       <a href="../coach/coach_event.php">Sport Event</a>
-      <a href="./chartjs.php">Results</a>
+      <a href="../coach/coach_result.php">Results</a>
       <a href="./chartjs.php">Reports</a>
       <a href="../coach/coach_profile.php">Profile</a>
       <a href="../includes/logout.inc.php">Logout</a>

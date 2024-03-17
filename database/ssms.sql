@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2024 at 10:15 AM
+-- Generation Time: Mar 17, 2024 at 09:35 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `events` (
   `id` int(11) NOT NULL,
   `event_name` varchar(255) NOT NULL,
+  `facility_name` int(11) DEFAULT NULL,
   `facility_type` enum('indoor','outdoor') NOT NULL,
   `description` text DEFAULT NULL,
   `start_date` date NOT NULL,
@@ -41,16 +42,17 @@ CREATE TABLE `events` (
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`id`, `event_name`, `facility_type`, `description`, `start_date`, `end_date`, `event_time`) VALUES
-(1, 'Maseno Opens Tournament', 'outdoor', 'Maseno to host it\'s anuall field games', '2024-04-06', '2024-04-07', '07:30:00'),
-(2, 'Maseno Rugby Fifteens', 'outdoor', 'Maseno to host Rugby 15\'s roundoff 16', '2024-04-13', '2024-04-14', '10:30:00'),
-(3, 'Maseno Hockey quaters', 'outdoor', 'Maseno  to host Hockey quater stages', '2024-04-20', '2024-04-21', '08:30:00'),
-(4, 'Maseno Tennis group stages', 'indoor', 'Maseno to host Tennis group stage games', '2024-04-06', '2024-04-07', '16:30:00'),
-(5, 'Maseno long distance regionals', 'outdoor', 'Maseno to host long distance regional athletics', '2024-04-27', '2024-04-28', '08:30:00'),
-(6, 'Maseno swiming opens', 'indoor', 'Maseno to host swimming opens competitions', '2024-04-12', '2024-04-12', '10:30:00'),
-(7, 'Maseno kick boxing counties', 'indoor', 'Maseno to host county kickboxing event', '2024-05-04', '2024-05-05', '10:30:00'),
-(8, 'Maseno Hockey semi\'s', 'outdoor', 'Maseno to host hockey semi\'s', '2024-05-11', '2024-05-12', '08:30:00'),
-(9, 'Maseno swiming finals', 'indoor', 'Maseno to host swimming finals', '2024-05-24', '2024-05-24', '10:30:00');
+INSERT INTO `events` (`id`, `event_name`, `facility_name`, `facility_type`, `description`, `start_date`, `end_date`, `event_time`) VALUES
+(1, 'Maseno Opens Tournament', 8, 'outdoor', 'Maseno to host it\'s anuall field games', '2024-04-06', '2024-04-07', '07:30:00'),
+(2, 'Maseno Rugby Fifteens', 3, 'outdoor', 'Maseno to host Rugby 15\'s roundoff 16', '2024-04-13', '2024-04-14', '10:30:00'),
+(3, 'Maseno Hockey quaters', 4, 'outdoor', 'Maseno  to host Hockey quater stages', '2024-04-20', '2024-04-21', '08:30:00'),
+(4, 'Maseno Tennis group stages', 11, 'indoor', 'Maseno to host Tennis group stage games', '2024-04-06', '2024-04-07', '16:30:00'),
+(5, 'Maseno long distance regionals', 8, 'outdoor', 'Maseno to host long distance regional athletics', '2024-04-27', '2024-04-28', '08:30:00'),
+(6, 'Maseno swiming opens', 9, 'indoor', 'Maseno to host swimming opens competitions', '2024-04-12', '2024-04-12', '10:30:00'),
+(7, 'Maseno kick boxing counties', 2, 'indoor', 'Maseno to host county kickboxing event', '2024-05-04', '2024-05-05', '10:30:00'),
+(8, 'Maseno Hockey semi\'s', 3, 'outdoor', 'Maseno to host hockey semi\'s', '2024-05-11', '2024-05-12', '08:30:00'),
+(9, 'Maseno swiming finals', 5, 'indoor', 'Maseno to host swimming finals', '2024-05-24', '2024-05-24', '10:30:00'),
+(10, 'Maseno Rugby sevens finals', 1, 'indoor', 'Maseno to host rugb sevens finals.', '2024-05-03', '2024-05-03', '08:30:00');
 
 -- --------------------------------------------------------
 
@@ -103,12 +105,24 @@ CREATE TABLE `facility_sport` (
 
 CREATE TABLE `results` (
   `id` int(11) NOT NULL,
-  `event_name` varchar(255) NOT NULL,
-  `sport_name` varchar(255) NOT NULL,
+  `event_id` int(11) NOT NULL,
+  `sport_id` int(11) NOT NULL,
+  `student_id` int(11) DEFAULT NULL,
   `sport_type` enum('single','double','team') NOT NULL,
   `rank` enum('winner','first place','second place','third place','participated') NOT NULL,
   `score_line` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `results`
+--
+
+INSERT INTO `results` (`id`, `event_id`, `sport_id`, `student_id`, `sport_type`, `rank`, `score_line`) VALUES
+(4, 5, 5, 9, 'single', 'first place', ' Time :1:56.23 '),
+(10, 5, 5, 15, 'single', 'second place', 'Time : 2:10.45'),
+(12, 5, 5, 17, 'single', 'third place', 'Time : 2:17.01'),
+(13, 1, 1, NULL, 'team', 'winner', 'Maseno vs Musingu 3-1'),
+(14, 3, 1, NULL, 'team', 'second place', 'Maseno vs  Moi 2-3');
 
 -- --------------------------------------------------------
 
@@ -270,7 +284,7 @@ INSERT INTO `users` (`id`, `username`, `pwd`, `email`, `created_at`, `role`, `ag
 (7, 'kaka', '$2y$10$1JhQagupfoNByFmRG2uaJu6jx08P8ab5CrXft2HoEEM.Pf9HgZq1.', 'kaka@gmail.com', '2024-03-06 15:59:34', 'student', 22, 'male', '0734562170'),
 (8, 'lydia', '$2y$10$RSewTcVMm6tE7ft5QPXeou3VntWOUc5KqwsAvhr/7BScLikNxltpy', 'lydia@gmail.com', '2024-03-06 16:14:31', 'coach', 35, 'female', '0734562134'),
 (9, 'mathew', '$2y$10$U3zjaOID02DHhuuNvuTUSubxwPZe8joy4NErz52yIKWVlW.QH2JqS', 'mathew@gmail.com', '2024-03-06 16:24:41', 'student', 16, 'male', '0768974563'),
-(10, 'vincent', '$2y$12$p0NSMDgtIAkJkKQDrO1tXuv9Nu0LfQQjwkT6F7Wu9rjBWL3UqLx0S', 'Vincent@gmail.com', '2024-03-06 16:25:32', 'student', NULL, NULL, NULL),
+(10, 'vincent', '$2y$10$TFdVhrpApUnItUXE6Pe9mecC8q3cehPDxWTfL5txqERmRYp/bUBWm', 'Vincent@gmail.com', '2024-03-06 16:25:32', 'coach', 56, 'male', '0789009345'),
 (11, 'lisa', '$2y$10$FgUeNaZK3mfv3ERhyWV59OVy9gNghdVvUoPNHwcWdAynxiXbWwP52', 'lisa@gmail.com', '2024-03-06 17:57:57', 'student', 23, 'female', '0756777345'),
 (12, 'saka', '$2y$12$oS6vIyl5iWnMxACp5ddtEeSnQT1UwBYjVHCfVtEE/GzUmqMjVbKmm', 'saka@gmail.com', '2024-03-06 19:31:43', 'student', NULL, NULL, NULL),
 (13, 'halsey', '$2y$12$fQmGornyiWDtnVzTilBDteQq4ObjPhmLuZrF7ZLLGmi2j/BtEFZrG', 'halsey@gmail.com', '2024-03-06 19:32:49', 'student', NULL, NULL, NULL),
@@ -290,7 +304,7 @@ INSERT INTO `users` (`id`, `username`, `pwd`, `email`, `created_at`, `role`, `ag
 (27, 'george', '$2y$12$GhiU8HHPI/bGfd/UEoXu7uTbY4GjYXLt4EyjyKnPostnC/1stFc4K', 'george@gmail.com', '2024-03-06 20:08:06', 'student', NULL, NULL, NULL),
 (28, 'dony', '$2y$12$Yc2ROgBtBMLaGBTKipzW1uUTPQdnQnJODDKkKRLVkw.rMZxt7gwGy', 'dony@gmail.com', '2024-03-06 20:08:23', 'student', NULL, NULL, NULL),
 (29, 'fanco', '$2y$12$eFrocD605zQ7rXMWNGear.Ts.F4jnCHblpN7tRLyrtrRNDHpJiGYa', 'fanco@gmail.com', '2024-03-06 20:08:41', 'student', NULL, NULL, NULL),
-(30, 'bie', '$2y$12$vwfbV/LMyuy82T4E5no57ONquKr2y4hPArRI0TCyOelIkjVJzJZS.', 'bie@gmail.com', '2024-03-06 20:08:57', 'student', NULL, NULL, NULL),
+(30, 'bie', '$2y$10$VtoNmF5kYGy6qDhecMgUFeI.TvIcAssR7Ok4wiP9/T6GapJj9AAQS', 'bie@gmail.com', '2024-03-06 20:08:57', 'coach', 43, 'female', '0789432123'),
 (31, 'loki', '$2y$12$lvmXoRIJVatkulJLHQJyIujlfv9zKMnPI7nb.w3BIlUooMo5T6aWK', 'loki@gmail.com', '2024-03-06 20:09:14', 'student', NULL, NULL, NULL),
 (32, 'thor', '$2y$12$hF0A94a9fnq48fdHJzk5i.1ra7N3DYS0/WpkmPbHh19cTNJpDfAaa', 'thor@gmail.com', '2024-03-06 20:10:10', 'student', NULL, NULL, NULL),
 (33, 'ordin', '$2y$12$MNrNE/UIZWyo4VAe/QrGvuetxpGqNCdc/q7tlw91Ru9ryrpfxhFfq', 'ordin@gmail.com', '2024-03-06 20:10:28', 'student', NULL, NULL, NULL),
@@ -318,7 +332,8 @@ INSERT INTO `users` (`id`, `username`, `pwd`, `email`, `created_at`, `role`, `ag
 -- Indexes for table `events`
 --
 ALTER TABLE `events`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_facility_name` (`facility_name`);
 
 --
 -- Indexes for table `facilities`
@@ -337,7 +352,10 @@ ALTER TABLE `facility_sport`
 -- Indexes for table `results`
 --
 ALTER TABLE `results`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `event_id` (`event_id`),
+  ADD KEY `sport_id` (`sport_id`),
+  ADD KEY `student_id` (`student_id`);
 
 --
 -- Indexes for table `sports`
@@ -383,7 +401,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `facilities`
@@ -395,7 +413,7 @@ ALTER TABLE `facilities`
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `sports`
@@ -432,11 +450,25 @@ ALTER TABLE `users`
 --
 
 --
+-- Constraints for table `events`
+--
+ALTER TABLE `events`
+  ADD CONSTRAINT `fk_facility_name` FOREIGN KEY (`facility_name`) REFERENCES `facilities` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `facility_sport`
 --
 ALTER TABLE `facility_sport`
   ADD CONSTRAINT `facility_sport_ibfk_1` FOREIGN KEY (`facility_id`) REFERENCES `facilities` (`id`),
   ADD CONSTRAINT `facility_sport_ibfk_2` FOREIGN KEY (`sport_id`) REFERENCES `sports` (`id`);
+
+--
+-- Constraints for table `results`
+--
+ALTER TABLE `results`
+  ADD CONSTRAINT `results_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`),
+  ADD CONSTRAINT `results_ibfk_2` FOREIGN KEY (`sport_id`) REFERENCES `sports` (`id`),
+  ADD CONSTRAINT `results_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `teams` (`student_id`);
 
 --
 -- Constraints for table `student_sports`

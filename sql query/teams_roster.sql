@@ -24,3 +24,20 @@ CREATE TABLE teams_roster (
     activity_description VARCHAR(255),
     FOREIGN KEY (coach_id) REFERENCES teams(coach_id)
 );
+
+CREATE TRIGGER update_teams_roster
+AFTER UPDATE ON teams
+FOR EACH ROW
+BEGIN
+    UPDATE teams_roster
+    SET coach_id = NEW.coach_id
+    WHERE coach_id = OLD.coach_id;
+END;
+
+ALTER TABLE teams_roster
+DROP FOREIGN KEY `teams_roster_ibfk_1`, 
+ADD CONSTRAINT `teams_roster_ibfk_1` FOREIGN KEY (`coach_id`) REFERENCES `teams` (`coach_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE teams_roster
+ADD CONSTRAINT `teams_roster_ibfk_1` FOREIGN KEY (`coach_id`) REFERENCES `teams` (`coach_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+

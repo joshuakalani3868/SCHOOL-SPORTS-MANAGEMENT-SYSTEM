@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2024 at 09:35 AM
+-- Generation Time: Mar 21, 2024 at 04:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -118,11 +118,10 @@ CREATE TABLE `results` (
 --
 
 INSERT INTO `results` (`id`, `event_id`, `sport_id`, `student_id`, `sport_type`, `rank`, `score_line`) VALUES
-(4, 5, 5, 9, 'single', 'first place', ' Time :1:56.23 '),
-(10, 5, 5, 15, 'single', 'second place', 'Time : 2:10.45'),
 (12, 5, 5, 17, 'single', 'third place', 'Time : 2:17.01'),
 (13, 1, 1, NULL, 'team', 'winner', 'Maseno vs Musingu 3-1'),
-(14, 3, 1, NULL, 'team', 'second place', 'Maseno vs  Moi 2-3');
+(14, 3, 1, NULL, 'team', 'second place', 'Maseno vs  Moi 2-3'),
+(15, 9, 4, 40, 'single', 'winner', 'Time 10:45');
 
 -- --------------------------------------------------------
 
@@ -190,7 +189,9 @@ INSERT INTO `student_sports` (`id`, `student_id`, `sport_id`) VALUES
 (16, 5, 2),
 (17, 47, 1),
 (18, 15, 9),
-(19, 9, 5);
+(19, 9, 5),
+(20, 12, 10),
+(21, 13, 1);
 
 -- --------------------------------------------------------
 
@@ -211,21 +212,23 @@ CREATE TABLE `teams` (
 
 INSERT INTO `teams` (`id`, `coach_id`, `sport_id`, `student_id`) VALUES
 (32, 4, 1, 7),
-(31, 4, 1, 23),
+(59, 4, 1, 13),
+(64, 4, 1, 23),
 (25, 4, 1, 31),
 (28, 4, 1, 32),
 (29, 4, 1, 42),
 (30, 4, 1, 47),
 (37, 6, 2, 3),
-(39, 6, 2, 5),
+(65, 6, 2, 5),
 (38, 6, 2, 19),
 (36, 6, 2, 20),
-(42, 8, 9, 15),
-(41, 8, 9, 40),
-(46, 46, 5, 9),
+(66, 8, 9, 15),
+(49, 8, 9, 40),
+(67, 46, 5, 9),
 (44, 46, 5, 17),
 (43, 46, 5, 38),
-(33, 46, 5, 39);
+(33, 46, 5, 39),
+(68, 48, 10, 12);
 
 -- --------------------------------------------------------
 
@@ -246,11 +249,18 @@ CREATE TABLE `teams_roster` (
 --
 
 INSERT INTO `teams_roster` (`id`, `coach_id`, `day_of_week`, `activity_time_range`, `activity_description`) VALUES
-(1, 4, 'Monday', '16:30-17:30', 'cardio one hour run'),
-(2, 46, 'Saturday', '08:30-10:30', 'endurance drills'),
-(3, 46, 'Wednesday', '16:00-18:30', 'strenght workout'),
-(4, 4, 'Thursday', '16:00-18:30', 'dribbling skills'),
-(5, 4, 'Friday', '16:00-18:30', 'one on one match');
+(6, 4, 'Monday', '16:00-18:30', 'ball works'),
+(7, 4, 'Wednesday', '16:30-17:30', 'Endurance run'),
+(9, 4, 'Thursday', '16:30-17:30', 'dribbling and control'),
+(10, 46, 'Monday', '16:00-18:30', 'cardio'),
+(11, 46, 'Friday', '16:00-18:30', 'full body stretches and flexibility '),
+(12, 46, 'Saturday', '08:30-10:30', 'morning run around the block'),
+(13, 8, 'Monday', '16:00-18:30', 'lungs expansion and endurance'),
+(14, 8, 'Thursday', '16:00-18:30', 'formations practice'),
+(15, 8, 'Friday', '16:30-17:30', 'pre game match'),
+(16, 6, 'Monday', '16:00-18:30', 'arms and legs workout'),
+(17, 6, 'Friday', '16:00-18:30', 'tennis court suicide drill'),
+(18, 48, 'Monday', '16:00-18:30', 'knuckles hardening and timing drill');
 
 -- --------------------------------------------------------
 
@@ -286,17 +296,17 @@ INSERT INTO `users` (`id`, `username`, `pwd`, `email`, `created_at`, `role`, `ag
 (9, 'mathew', '$2y$10$U3zjaOID02DHhuuNvuTUSubxwPZe8joy4NErz52yIKWVlW.QH2JqS', 'mathew@gmail.com', '2024-03-06 16:24:41', 'student', 16, 'male', '0768974563'),
 (10, 'vincent', '$2y$10$TFdVhrpApUnItUXE6Pe9mecC8q3cehPDxWTfL5txqERmRYp/bUBWm', 'Vincent@gmail.com', '2024-03-06 16:25:32', 'coach', 56, 'male', '0789009345'),
 (11, 'lisa', '$2y$10$FgUeNaZK3mfv3ERhyWV59OVy9gNghdVvUoPNHwcWdAynxiXbWwP52', 'lisa@gmail.com', '2024-03-06 17:57:57', 'student', 23, 'female', '0756777345'),
-(12, 'saka', '$2y$12$oS6vIyl5iWnMxACp5ddtEeSnQT1UwBYjVHCfVtEE/GzUmqMjVbKmm', 'saka@gmail.com', '2024-03-06 19:31:43', 'student', NULL, NULL, NULL),
-(13, 'halsey', '$2y$12$fQmGornyiWDtnVzTilBDteQq4ObjPhmLuZrF7ZLLGmi2j/BtEFZrG', 'halsey@gmail.com', '2024-03-06 19:32:49', 'student', NULL, NULL, NULL),
+(12, 'saka', '$2y$10$ghThJZlO6nhz.ldq12sjbOsWrJ5YJHVC0pfteEfYp//QWxE30Wr0u', 'saka@gmail.com', '2024-03-06 19:31:43', 'student', 21, 'male', '0711765432'),
+(13, 'halsey', '$2y$10$8Eb3NgYBrUTS5x4GQzyLOuxeIKM.ZaGSXKeJ.jY4jFtn1lAsI3fGC', 'halsey@gmail.com', '2024-03-06 19:32:49', 'student', 21, 'female', '0745674342'),
 (14, 'james', '$2y$12$Kxrfvc0q6lKN2.R61Tdadu.Fx8bGrNEg99kkagrGRp5UTkKx.CbCu', 'james@gmail.com', '2024-03-06 19:33:23', 'student', NULL, NULL, NULL),
 (15, 'jack', '$2y$10$zVTVC5Dbdz//aCmTY8TrAOe7TWKzgHMVnpDrkXOD8eWOhknoYLrsW', 'jack@gmail.com', '2024-03-06 20:04:00', 'student', 16, 'male', '0789654321'),
-(16, 'mark', '$2y$12$2R9vodGJFKcNLrqnPc2MwO0B7PZsR7kE/y2aQqD9aDqhU4kQIAy0W', 'mark@gmail.com', '2024-03-06 20:04:29', 'student', NULL, NULL, NULL),
+(16, 'mark', '$2y$10$FZHBCFQc3H9UCj2dGhmQjOxIxQD9jNiDJx8DMbG6XqvfbuuvvWY6q', 'mark@gmail.com', '2024-03-06 20:04:29', 'student', 19, 'male', '0789265473'),
 (17, 'faith', '$2y$10$BE4wQCDRGrBaf563biBE0.TDuJo.Lj3Kx9QxuM/4FKlJJOcRE/TUG', 'faith@gmail.com', '2024-03-06 20:04:49', 'student', 17, 'female', '0723456765'),
 (18, 'babu', '$2y$10$zUL2PbcfOPL9vyA8jpBRGOUAjvh4q1KPq9KcLgRKkGpVJ80QWKmoO', 'babu@gmail.com', '2024-03-06 20:05:05', 'student', 23, 'male', '0745678543'),
 (19, 'lady', '$2y$10$wwZqcRdfQXL/.0foNaMrAObjU0nPjEUfOqTZKfgd/6.eDzLLdZYs2', 'lady@gmail.com', '2024-03-06 20:05:22', 'student', 20, 'female', '0789654563'),
 (20, 'lucy', '$2y$10$HtXVYnXtJmv8lSIG1kiV4euZZTuzr3HZaXDJDwkSxkx6BELL2vRZK', 'lucy@gmail.com', '2024-03-06 20:05:39', 'student', 21, 'male', '0734567832'),
 (21, 'lloyd', '$2y$12$Jyg6WIledPwPeAgl3HGMHejYTDIgCKaifVjD68J0u7cQrxKATZ9Tu', 'lloyd@gmail.com', '2024-03-06 20:06:00', 'student', NULL, NULL, NULL),
-(22, 'boss', '$2y$12$Iohw.z039qFVrHardIQKWO3WxQGPKl9BlC0y1069umjSXlkFiZib6', 'boss@gmail.com', '2024-03-06 20:06:16', 'student', NULL, NULL, NULL),
+(22, 'boss', '$2y$10$iM4F/aPEcI/ty2nOV6qk1OrCeBnle0hAvKYWtbFwdHbBdf6lrUzp2', 'boss@gmail.com', '2024-03-06 20:06:16', 'student', 23, 'male', '0723654782'),
 (23, 'doc', '$2y$12$3UwIoqzmQtKoFRDLwSLq9uzUNXcKvhmOPzzpuuJleru3C9KgPyASq', 'doc@gmail.com', '2024-03-06 20:06:33', 'student', NULL, NULL, NULL),
 (24, 'miss', '$2y$12$GWCtZ/vZPAy7dugeARUEiOXUacc7yLGcsjyb4WSPg1VcbuIMys30C', 'miss@gmail.com', '2024-03-06 20:06:49', 'student', NULL, NULL, NULL),
 (25, 'dan', '$2y$12$0zH2unQNnMXYEBk/JE3jkOmQA1GIYC3StmnWcUMQ4GkRNUp/B.rZC', 'dan@gmail.com', '2024-03-06 20:07:25', 'student', NULL, NULL, NULL),
@@ -355,7 +365,7 @@ ALTER TABLE `results`
   ADD PRIMARY KEY (`id`),
   ADD KEY `event_id` (`event_id`),
   ADD KEY `sport_id` (`sport_id`),
-  ADD KEY `student_id` (`student_id`);
+  ADD KEY `results_ibfk_3` (`student_id`);
 
 --
 -- Indexes for table `sports`
@@ -385,7 +395,7 @@ ALTER TABLE `teams`
 --
 ALTER TABLE `teams_roster`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `coach_id` (`coach_id`);
+  ADD KEY `teams_roster_ibfk_1` (`coach_id`);
 
 --
 -- Indexes for table `users`
@@ -413,7 +423,7 @@ ALTER TABLE `facilities`
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `sports`
@@ -425,19 +435,19 @@ ALTER TABLE `sports`
 -- AUTO_INCREMENT for table `student_sports`
 --
 ALTER TABLE `student_sports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `teams_roster`
 --
 ALTER TABLE `teams_roster`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -468,7 +478,7 @@ ALTER TABLE `facility_sport`
 ALTER TABLE `results`
   ADD CONSTRAINT `results_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`),
   ADD CONSTRAINT `results_ibfk_2` FOREIGN KEY (`sport_id`) REFERENCES `sports` (`id`),
-  ADD CONSTRAINT `results_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `teams` (`student_id`);
+  ADD CONSTRAINT `results_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `teams` (`student_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `student_sports`
@@ -489,7 +499,7 @@ ALTER TABLE `teams`
 -- Constraints for table `teams_roster`
 --
 ALTER TABLE `teams_roster`
-  ADD CONSTRAINT `teams_roster_ibfk_1` FOREIGN KEY (`coach_id`) REFERENCES `teams` (`coach_id`);
+  ADD CONSTRAINT `teams_roster_ibfk_1` FOREIGN KEY (`coach_id`) REFERENCES `teams` (`coach_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

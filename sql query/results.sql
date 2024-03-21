@@ -23,3 +23,18 @@ CREATE TABLE results (
 );
 
 ALTER TABLE results MODIFY COLUMN student_id INT NULL;
+
+ALTER TABLE results
+DROP FOREIGN KEY `results_ibfk_3`, -- Dropping existing foreign key constraint
+ADD CONSTRAINT `results_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `teams` (`student_id`) ON DELETE CASCADE;
+
+SHOW CREATE TABLE results;
+ALTER TABLE results DROP FOREIGN KEY `results_ibfk_3`;
+ALTER TABLE results
+ADD CONSTRAINT `results_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `teams` (`student_id`) ON DELETE CASCADE;
+
+ALTER TABLE results
+DROP FOREIGN KEY `results_ibfk_3`, 
+ADD CONSTRAINT `results_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `student_sports` (`student_id`) ON DELETE CASCADE;
+
+

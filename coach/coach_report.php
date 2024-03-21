@@ -56,7 +56,9 @@
         <h2>Reports Dashboard</h2>
         <a href="age_category_report.php" class="report-link">Age Category Report</a>
         <a href="gender_report.php" class="report-link">Gender Report</a>
+        <a href="role_report.php" class="report-link">Role Report</a>
         <a href="sport_numbers_report.php" class="report-link">Sports Numbers Report</a>
+        
         <!-- Add more links for other report categories -->
     </div>
 </body>

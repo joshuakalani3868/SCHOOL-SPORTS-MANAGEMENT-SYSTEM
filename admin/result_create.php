@@ -2,7 +2,6 @@
 session_start();
 include('../includes/result.inc.php'); // Include the logic file
 
-
 // Fetch sports available
 $sports = fetchSports(); // Assuming you have a function to fetch sports from the database
 
@@ -22,6 +21,9 @@ $students = fetchStudents(); // Fetch students from the database
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/css/select2.min.css" rel="stylesheet" />
 
     <title>Result Add</title>
 </head>
@@ -56,18 +58,18 @@ $students = fetchStudents(); // Fetch students from the database
                             </select>
                         </div>
                         <div class="mb-3">
-                        <label for="student_id">Student</label>
-                        <select id="student_id" name="student_id" class="form-control">
-                            <?php if ($sport_type !== 'team'): ?>
-                                <option value="none">None</option>
-                                <?php foreach ($students as $student): ?>
-                                    <option value="<?php echo $student['student_id']; ?>"><?php echo $student['student_name']; ?></option>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <option value="none" selected>None</option>
-                            <?php endif; ?>
-                        </select>
-                    </div>
+                            <label for="student_id">Student</label>
+                            <select id="student_id" name="student_id" class="form-control">
+                                <?php if ($sport_type !== 'team'): ?>
+                                    <option value="none">None</option>
+                                    <?php foreach ($students as $student): ?>
+                                        <option value="<?php echo $student['student_id']; ?>"><?php echo $student['student_name']; ?></option>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <option value="none" selected>None</option>
+                                <?php endif; ?>
+                            </select>
+                        </div>
                         <div class="mb-3">
                             <label for="sport_type">Sport Type</label>
                             <select id="sport_type" name="sport_type" class="form-control">
@@ -101,5 +103,14 @@ $students = fetchStudents(); // Fetch students from the database
 </div>
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#student_id').select2(); // Initialize Select2 on your student select element
+    });
+</script>
 </body>
 </html>

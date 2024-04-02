@@ -19,6 +19,9 @@ $students = fetchStudents(); // Assuming you have a function to fetch students f
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/css/select2.min.css" rel="stylesheet" />
 
     <title>Result Edit</title>
 </head>
@@ -47,12 +50,12 @@ $students = fetchStudents(); // Assuming you have a function to fetch students f
                             $result = mysqli_fetch_array($query_run);
                             ?>
                             <form action="../includes/result.inc.php" method="POST">
-                                <input type="hidden" name="result_id" value="<?=$result['id']; ?>">
+                                <input type="hidden" name="result_id" value="<?=htmlspecialchars($result['id']); ?>">
                                 <div class="mb-3">
                                     <label for="event_id">Event</label>
                                     <select id="event_id" name="event_id" class="form-control">
                                         <?php foreach ($events as $event): ?>
-                                            <option value="<?php echo $event['id']; ?>" <?php if($event['id'] == $result['event_id']) echo 'selected'; ?>><?php echo $event['event_name']; ?></option>
+                                            <option value="<?=htmlspecialchars($event['id']); ?>" <?php if($event['id'] == $result['event_id']) echo 'selected'; ?>><?php echo htmlspecialchars($event['event_name']); ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -60,7 +63,7 @@ $students = fetchStudents(); // Assuming you have a function to fetch students f
                                     <label for="sport_id">Sport</label>
                                     <select id="sport_id" name="sport_id" class="form-control">
                                         <?php foreach ($sports as $sport): ?>
-                                            <option value="<?php echo $sport['id']; ?>" <?php if($sport['id'] == $result['sport_id']) echo 'selected'; ?>><?php echo $sport['sport_name']; ?></option>
+                                            <option value="<?=htmlspecialchars($sport['id']); ?>" <?php if($sport['id'] == $result['sport_id']) echo 'selected'; ?>><?php echo htmlspecialchars($sport['sport_name']); ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -68,7 +71,7 @@ $students = fetchStudents(); // Assuming you have a function to fetch students f
                                     <label for="student_id">Student</label>
                                     <select id="student_id" name="student_id" class="form-control">
                                         <?php foreach ($students as $student): ?>
-                                            <option value="<?php echo $student['student_id']; ?>" <?php if($student['student_id'] == $result['student_id']) echo 'selected'; ?>><?php echo $student['student_name']; ?></option>
+                                            <option value="<?=htmlspecialchars($student['student_id']); ?>" <?php if($student['student_id'] == $result['student_id']) echo 'selected'; ?>><?php echo htmlspecialchars($student['student_name']); ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -92,7 +95,7 @@ $students = fetchStudents(); // Assuming you have a function to fetch students f
                                 </div>
                                 <div class="mb-3">
                                     <label for="score_line">Score Line</label>
-                                    <input type="text" id="score_line" name="score_line" value="<?=$result['score_line'];?>" class="form-control" maxlength="255">
+                                    <input type="text" id="score_line" name="score_line" value="<?=htmlspecialchars($result['score_line']);?>" class="form-control" maxlength="255">
                                 </div>
                                 <div class="mb-3">
                                     <button type="submit" name="update_result" class="btn btn-primary">Update Result</button>
@@ -112,5 +115,13 @@ $students = fetchStudents(); // Assuming you have a function to fetch students f
 </div>
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</body>
-</html>
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#student_id').select2(); // Initialize Select2 on your student select element
+    });
+</script>
+</

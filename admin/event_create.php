@@ -45,6 +45,12 @@ session_start();
                                 }
                                 ?>
                             </select>
+                            <div class="mb-3">
+                            <label for="facility_type">Facility Type</label>
+                            <select id="facility_type" name="facility_type" class="form-control">
+                                <option value="indoor">Indoor</option>
+                                <option value="outdoor">Outdoor</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="description">Description</label>
@@ -62,6 +68,33 @@ session_start();
                             <label for="event_time">Event Time</label>
                             <input type="time" id="event_time" name="event_time" class="form-control">
                         </div>
+                        <div class="mb-3">
+                            <label for="host_school">Host School</label>
+                            <select id="host_school" name="host_school" class="form-control">
+                                <?php
+                                require '../includes/dbh.inc.php';
+                                $query = "SELECT school_id, school_name FROM Schools WHERE is_host = 'host'";
+                                $result = mysqli_query($con, $query);
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<option value='" . $row['school_id'] . "'>" . $row['school_name'] . "</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+    <label for="participant_school">Participant School</label>
+    <?php
+    require '../includes/dbh.inc.php';
+    $query = "SELECT school_id, school_name FROM Schools WHERE is_host = 'participant'";
+    $result = mysqli_query($con, $query);
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "<div class='form-check'>";
+        echo "<input class='form-check-input' type='checkbox' name='participant_school[]' value='" . $row['school_id'] . "'>";
+        echo "<label class='form-check-label'>" . $row['school_name'] . "</label>";
+        echo "</div>";
+    }
+    ?>
+</div>
                         <div class="mb-3">
                             <button type="submit" name="save_event" class="btn btn-primary">Save Event</button>
                         </div>

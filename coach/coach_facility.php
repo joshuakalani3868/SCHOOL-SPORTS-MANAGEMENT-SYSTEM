@@ -13,25 +13,31 @@ require '../includes/dbh.inc.php';
 <?php include('../includes/coach_header.inc.php'); ?>
 <body>
 <div class="container mt-5">
-   
+    <?php include('../includes/message.inc.php'); ?>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <h4>Facility Details</h4>
+            <div class="card-header">
+                    <h4 class="d-flex justify-content-between align-items-center">
+                        <span>Facility Details</span>
+                        <div>
+                            <a href="../includes/tcpdf_facility.inc.php" class="btn btn-primary me-2">Download PDF</a>
+                        </div>
+                    </h4>
                 </div>
                 <div class="card-body">
+                    
                     <table class="table table-bordered table-striped">
                         <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>Facility Name</th>
-                            <th>Facility Type</th>
-                            <th>Sports Available</th>
-                            <th>Capacity</th>
-                            <th>Operating Time Start</th>
-                            <th>Operating Time End</th>
-                        </tr>
+                            <tr>
+                                <th>NO</th>
+                                <th>Facility Name</th>
+                                <th>Facility Type</th>
+                                <th>Sports Available</th>
+                                <th>Capacity</th>
+                                <th>Operating Time Start</th>
+                                <th>Operating Time End</th>
+                            </tr>
                         </thead>
                         <tbody>
                         <?php
@@ -55,10 +61,9 @@ require '../includes/dbh.inc.php';
                         <?php
                             }
                         } else {
-                            echo "<h5>No Record Found!</h5>";
+                            echo "<tr><td colspan='7'><h5>No Record Found!</h5></td></tr>";
                         }
                         ?>
-
                         </tbody>
                     </table>
                 </div>

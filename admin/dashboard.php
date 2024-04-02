@@ -17,9 +17,9 @@
                     <a href="#" class="nav__logo">SSMS</a>
                 </div>
                 <div class="nav__list">
-                    <a href="#" class="nav__link active">
+                    <a href="school_details.php" class="nav__link active">
                         <ion-icon name="home-outline" class="nav__icon"></ion-icon>
-                        <span class="nav__name">Dashboard</span>
+                        <span class="nav__name">Schools</span>
                     </a>
                     <a href="#" class="nav__link">
                         <ion-icon name="chatbubbles-outline" class="nav__icon"></ion-icon>

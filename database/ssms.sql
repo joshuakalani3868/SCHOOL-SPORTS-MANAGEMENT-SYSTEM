@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2024 at 04:26 PM
+-- Generation Time: Apr 02, 2024 at 04:56 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -35,24 +35,26 @@ CREATE TABLE `events` (
   `description` text DEFAULT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
-  `event_time` time NOT NULL
+  `event_time` time NOT NULL,
+  `host_school` varchar(255) DEFAULT NULL,
+  `participant_school` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`id`, `event_name`, `facility_name`, `facility_type`, `description`, `start_date`, `end_date`, `event_time`) VALUES
-(1, 'Maseno Opens Tournament', 8, 'outdoor', 'Maseno to host it\'s anuall field games', '2024-04-06', '2024-04-07', '07:30:00'),
-(2, 'Maseno Rugby Fifteens', 3, 'outdoor', 'Maseno to host Rugby 15\'s roundoff 16', '2024-04-13', '2024-04-14', '10:30:00'),
-(3, 'Maseno Hockey quaters', 4, 'outdoor', 'Maseno  to host Hockey quater stages', '2024-04-20', '2024-04-21', '08:30:00'),
-(4, 'Maseno Tennis group stages', 11, 'indoor', 'Maseno to host Tennis group stage games', '2024-04-06', '2024-04-07', '16:30:00'),
-(5, 'Maseno long distance regionals', 8, 'outdoor', 'Maseno to host long distance regional athletics', '2024-04-27', '2024-04-28', '08:30:00'),
-(6, 'Maseno swiming opens', 9, 'indoor', 'Maseno to host swimming opens competitions', '2024-04-12', '2024-04-12', '10:30:00'),
-(7, 'Maseno kick boxing counties', 2, 'indoor', 'Maseno to host county kickboxing event', '2024-05-04', '2024-05-05', '10:30:00'),
-(8, 'Maseno Hockey semi\'s', 3, 'outdoor', 'Maseno to host hockey semi\'s', '2024-05-11', '2024-05-12', '08:30:00'),
-(9, 'Maseno swiming finals', 5, 'indoor', 'Maseno to host swimming finals', '2024-05-24', '2024-05-24', '10:30:00'),
-(10, 'Maseno Rugby sevens finals', 1, 'indoor', 'Maseno to host rugb sevens finals.', '2024-05-03', '2024-05-03', '08:30:00');
+INSERT INTO `events` (`id`, `event_name`, `facility_name`, `facility_type`, `description`, `start_date`, `end_date`, `event_time`, `host_school`, `participant_school`) VALUES
+(1, 'Maseno Opens Tournament', 8, 'outdoor', 'Maseno to host it\'s annual  field games', '2024-04-06', '2024-04-07', '07:30:00', '1', '2,5,6'),
+(2, 'Maseno Rugby Fifteens', 3, 'outdoor', 'Maseno to host Rugby15\'s round off 16', '2024-04-13', '2024-04-14', '10:30:00', '1', '5,6,7,8'),
+(3, 'Maseno Hockey quaters', 4, 'outdoor', 'Maseno to host Hockey quater stages', '2024-04-20', '2024-04-21', '08:30:00', '1', '2,5,6'),
+(4, 'Maseno Tennis group stages', 1, 'indoor', 'Maseno to host Tennis group stages', '2024-04-06', '2024-04-07', '16:30:00', '1', '7,8'),
+(5, 'Maseno long distance regionals', 8, 'outdoor', 'Maseno to host host Long distance regional athletics', '2024-04-27', '2024-04-28', '08:30:00', '1', '2,7'),
+(6, 'Maseno swiming opens', 9, 'indoor', 'Maseno to host swimming opens competitions', '2024-04-12', '2024-04-12', '10:30:00', '1', '2,3,4,5,6,7,8'),
+(7, 'Maseno kick boxing counties', 6, 'indoor', 'Maseno to host county kick boxing event', '2024-04-05', '2024-04-05', '10:30:00', '1', '2'),
+(8, 'Maseno Hockey semi\'s', 3, 'outdoor', 'Maseno to host Hockey semis', '2024-05-11', '2024-05-12', '08:30:00', '1', '3,4,8'),
+(9, 'Maseno swiming finals', 5, 'indoor', 'Maseno to host Swimming finals', '2024-05-24', '2024-05-24', '10:30:00', '1', '5,6'),
+(10, 'Maseno Rugby sevens finals', 3, 'outdoor', 'Maseno to host Rugby Sevens finals', '2024-05-03', '2024-05-03', '08:30:00', '1', '4');
 
 -- --------------------------------------------------------
 
@@ -113,15 +115,35 @@ CREATE TABLE `results` (
   `score_line` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `results`
+-- Table structure for table `schools`
 --
 
-INSERT INTO `results` (`id`, `event_id`, `sport_id`, `student_id`, `sport_type`, `rank`, `score_line`) VALUES
-(12, 5, 5, 17, 'single', 'third place', 'Time : 2:17.01'),
-(13, 1, 1, NULL, 'team', 'winner', 'Maseno vs Musingu 3-1'),
-(14, 3, 1, NULL, 'team', 'second place', 'Maseno vs  Moi 2-3'),
-(15, 9, 4, 40, 'single', 'winner', 'Time 10:45');
+CREATE TABLE `schools` (
+  `school_id` int(11) NOT NULL,
+  `school_name` varchar(50) NOT NULL,
+  `school_location` varchar(50) DEFAULT NULL,
+  `contact_person_name` varchar(50) DEFAULT NULL,
+  `contact_person_email` varchar(50) DEFAULT NULL,
+  `contact_person_phone` varchar(15) DEFAULT NULL,
+  `is_host` enum('host','participant') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `schools`
+--
+
+INSERT INTO `schools` (`school_id`, `school_name`, `school_location`, `contact_person_name`, `contact_person_email`, `contact_person_phone`, `is_host`) VALUES
+(1, 'Maseno University', 'Maseno', 'Mr.Owalo', 'owalo@gmail.com', '0789044567', 'host'),
+(2, 'Moi Univeristy', 'Edoret', 'Mr.Kiprono', 'kiprono@gmail.om', '0734567821', 'participant'),
+(3, 'Kenyatta University', 'Kiambu', 'Mr.Wanjala', 'wanjala@gmail.com', '0723465789', 'participant'),
+(4, 'Strathmore University', 'Nairobi', 'Mr.Kamau', 'kamau@gmil.com', '0789654321', 'participant'),
+(5, 'Masinde Muliro', 'Nakuru', 'Mr.Mutiso', 'mutiso@gmail.com', '0788805674', 'participant'),
+(6, 'University of Nairobi', 'Nairobi', 'Mr.Kidero', 'kidero@gmail.com', '0744567823', 'participant'),
+(7, 'Egerton University', 'Narok', 'Mr.Nkunku', 'nkuku@gmail.com', '0733467512', 'participant'),
+(8, 'Mount kenya University', 'Thika', 'Mr.Ahmed', 'ahmed@gmail.com', '0785674321', 'participant');
 
 -- --------------------------------------------------------
 
@@ -368,6 +390,12 @@ ALTER TABLE `results`
   ADD KEY `results_ibfk_3` (`student_id`);
 
 --
+-- Indexes for table `schools`
+--
+ALTER TABLE `schools`
+  ADD PRIMARY KEY (`school_id`);
+
+--
 -- Indexes for table `sports`
 --
 ALTER TABLE `sports`
@@ -424,6 +452,12 @@ ALTER TABLE `facilities`
 --
 ALTER TABLE `results`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `schools`
+--
+ALTER TABLE `schools`
+  MODIFY `school_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `sports`

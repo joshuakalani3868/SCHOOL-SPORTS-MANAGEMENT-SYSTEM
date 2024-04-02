@@ -1,5 +1,4 @@
 <?php
-/*session_start();*/
 require '../includes/dbh.inc.php';
 ?>
 
@@ -65,6 +64,29 @@ require '../includes/dbh.inc.php';
                             <div class="mb-3">
                                 <label for="event_time">Event Time</label>
                                 <p class="form-control"><?=$event['event_time'];?></p>
+                            </div>
+                            <div class="mb-3">
+                                <label for="host_school">Host School</label>
+                                <p class="form-control">
+                                    <?php
+                                    $host_query = "SELECT school_name FROM Schools WHERE is_host = 'host' AND school_id = " . $event['host_school'];
+                                    $host_result = mysqli_query($con, $host_query);
+                                    $host_school = mysqli_fetch_assoc($host_result);
+                                    echo $host_school['school_name'];
+                                    ?>
+                                </p>
+                            </div>
+                            <div class="mb-3">
+                                <label for="participant_school">Participant Schools</label>
+                                <p class="form-control">
+                                    <?php
+                                    $participant_query = "SELECT school_name FROM Schools WHERE is_host = 'participant' AND FIND_IN_SET(school_id, '" . $event['participant_school'] . "')";
+                                    $participant_result = mysqli_query($con, $participant_query);
+                                    while($participant_school = mysqli_fetch_assoc($participant_result)) {
+                                        echo $participant_school['school_name'] . "<br>";
+                                    }
+                                    ?>
+                                </p>
                             </div>
                             <?php
                         }

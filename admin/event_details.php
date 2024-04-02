@@ -71,63 +71,87 @@ if(isset($_POST['delete_event'])) {
                         <div>
                             <a href="dashboard.php" class="btn btn-primary me-2">Home</a>
                             <a href="event_create.php" class="btn btn-primary">Add Event</a>
+                            <a href="../includes/tcpdf_event.inc.php" class="btn btn-primary me-2">Download PDF</a>
+
                         </div>
                     </h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                    <div style="overflow-x: auto; width: 1500px;">
+                    <div style="overflow-x: auto; width: 1800px;">
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>NO</th>
                                         <th>Event Name</th>
-                                        <th>Facility Name</th> <!-- Modified: Display Facility Name -->
+                                        <th>Facility Name</th>
                                         <th>Facility Type</th>
                                         <th>Description</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
                                         <th>Event Time</th>
+                                        <th>Host School</th> <!-- New Column -->
+                                        <th>Participant Schools</th> <!-- New Column -->
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    $query = "SELECT e.*, f.facility_name 
-                                            FROM events e
-                                            INNER JOIN facilities f ON e.facility_name = f.id"; // Adjusted query to join with facilities table
-                                    $query_run = $pdo->query($query);
+                                <?php
+$query = "SELECT e.*, f.facility_name, hs.school_name AS host_school_name, GROUP_CONCAT(ps.school_id) AS participant_school
+        FROM events e
+        INNER JOIN facilities f ON e.facility_name = f.id
+        INNER JOIN Schools hs ON e.host_school = hs.school_id
+        INNER JOIN Schools ps ON FIND_IN_SET(ps.school_id, e.participant_school) > 0
+        GROUP BY e.id"; // Use GROUP_CONCAT to concatenate participant school IDs
+$query_run = $pdo->query($query);
 
-                                    if ($query_run->rowCount() > 0) {
-                                        $count = 0; // Initialize counter variable
-                                        foreach ($query_run as $event) {
-                                            $count++; // Increment counter for each iteration
-                                    ?>
-                                                <tr>
-                                                    <td><?= $count; ?></td> <!-- Display entry number -->
-                                                    <td><?= $event['event_name']; ?></td>
-                                                    <td><?= $event['facility_name']; ?></td> <!-- Display facility_name -->
-                                                    <td><?= $event['facility_type']; ?></td>
-                                                    <td><?= $event['description']; ?></td>
-                                                    <td><?= $event['start_date']; ?></td>
-                                                    <td><?= $event['end_date']; ?></td>
-                                                    <td><?= $event['event_time']; ?></td>
-                                                    <td>
-                                                        <a href="event_view.php?id=<?= $event['id']; ?>" class="btn btn-info btn-sm">View</a>
-                                                        <a href="event_edit.php?id=<?= $event['id']; ?>" class="btn btn-success btn-sm">Edit</a>
-                                                        <!-- Delete Button and Form -->
-                                                        <form action="event_details.php" method="POST" class="d-inline">
-                                                            <input type="hidden" name="delete_event" value="<?= $event['id']; ?>">
-                                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                    <?php
-                                        }
-                                    } else {
-                                        echo "<h5>No Record Found!</h5>";
-                                    }
-                                    ?>
+if ($query_run->rowCount() > 0) {
+    $count = 0; // Initialize counter variable
+    foreach ($query_run as $event) {
+        $count++; // Increment counter for each iteration
+?>
+<tr>
+    <td><?= $count; ?></td>
+    <td><?= $event['event_name']; ?></td>
+    <td><?= $event['facility_name']; ?></td>
+    <td><?= $event['facility_type']; ?></td>
+    <td><?= $event['description']; ?></td>
+    <td><?= $event['start_date']; ?></td>
+    <td><?= $event['end_date']; ?></td>
+    <td><?= $event['event_time']; ?></td>
+    <td><?= $event['host_school_name']; ?></td> <!-- Display host_school_name -->
+    <td>
+        <?php
+        $participant_schools = explode(',', $event['participant_school']);
+        foreach ($participant_schools as $school_id) {
+            // Fetch school name from the database using the school ID
+            $stmt = $pdo->prepare("SELECT school_name FROM Schools WHERE school_id = :school_id");
+            $stmt->bindParam(':school_id', $school_id);
+            $stmt->execute();
+            $school = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($school) {
+                echo $school['school_name'] . "<br>";
+            }
+        }
+        ?>
+    </td>
+    <td>
+        <a href="event_view.php?id=<?= $event['id']; ?>" class="btn btn-info btn-sm">View</a>
+        <a href="event_edit.php?id=<?= $event['id']; ?>" class="btn btn-success btn-sm">Edit</a>
+        <!-- Delete Button and Form -->
+        <form action="event_details.php" method="POST" class="d-inline">
+            <input type="hidden" name="delete_event" value="<?= $event['id']; ?>">
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+    </td>
+</tr>
+<?php
+    }
+} else {
+    echo "<h5>No Record Found!</h5>";
+}
+?>
+
 
                                 </tbody>
                             </table>

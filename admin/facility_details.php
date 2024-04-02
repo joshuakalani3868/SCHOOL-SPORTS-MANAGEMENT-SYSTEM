@@ -47,6 +47,10 @@ if(isset($_POST['delete_facility'])) {
                   <div>
                    <a href="dashboard.php" class="btn btn-primary me-2">Home</a>
                    <a href="facility_create.php" class="btn btn-primary">Add Facility</a>
+                   <a href="../includes/tcpdf_facility.inc.php" class="btn btn-primary me-2">Download PDF</a>
+
+                 
+
                    </div>
                 </h4>
                 </div>

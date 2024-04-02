@@ -60,6 +60,13 @@ require '../includes/dbh.inc.php';
                                     </select>
                                 </div>
                                 <div class="mb-3">
+                                    <label for="facility_type">Facility Type</label>
+                                    <select id="facility_type" name="facility_type" class="form-control">
+                                        <option value="indoor" <?php if($event['facility_type'] == 'indoor') echo 'selected'; ?>>Indoor</option>
+                                        <option value="outdoor" <?php if($event['facility_type'] == 'outdoor') echo 'selected'; ?>>Outdoor</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <label for="description">Description</label>
                                     <textarea id="description" name="description" class="form-control" maxlength="60" style="max-width: 100%; width: 100%;"><?= $event['description'];?></textarea>
                                     <!-- Set maxlength to limit the number of characters -->
@@ -76,6 +83,34 @@ require '../includes/dbh.inc.php';
                                     <label for="event_time">Event Time</label>
                                     <input type="time" id="event_time" name="event_time" value="<?=$event['event_time'];?>" class="form-control">
                                 </div>
+                                <div class="mb-3">
+                                    <label for="host_school">Host School</label>
+                                    <select id="host_school" name="host_school" class="form-control">
+                                        <?php
+                                        $query = "SELECT school_id, school_name FROM Schools WHERE is_host = 'host'";
+                                        $result = mysqli_query($con, $query);
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            $selected = ($event['host_school'] == $row['school_id']) ? 'selected' : '';
+                                            echo "<option value='" . $row['school_id'] . "' $selected>" . $row['school_name'] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+    <label for="participant_school">Participant School</label>
+    <?php
+    $selected_participant_schools = explode(',', $event['participant_school']);
+    $query = "SELECT school_id, school_name FROM Schools WHERE is_host = 'participant'";
+    $result = mysqli_query($con, $query);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $checked = (in_array($row['school_id'], $selected_participant_schools)) ? 'checked' : '';
+        echo "<div class='form-check'>";
+        echo "<input class='form-check-input' type='checkbox' name='participant_school[]' value='" . $row['school_id'] . "' $checked>";
+        echo "<label class='form-check-label'>" . $row['school_name'] . "</label>";
+        echo "</div>";
+    }
+    ?>
+</div>
                                 <div class="mb-3">
                                     <button type="submit" name="update_event" class="btn btn-primary">Update Event</button>
                                 </div>

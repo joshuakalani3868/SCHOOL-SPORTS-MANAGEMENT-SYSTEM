@@ -36,7 +36,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'coach') {
                     <h4 class="d-flex justify-content-between align-items-center">
                         <span>Coach Team Details</span>
                         <div>
-                        <a href="../includes/tcpdf.inc.php" class="btn btn-primary me-2">Download PDF</a>
+                        <a href="../includes/tcpdf_team.inc.php" class="btn btn-primary me-2">Download PDF</a>
                         </div>
                     </h4>
                 </div>

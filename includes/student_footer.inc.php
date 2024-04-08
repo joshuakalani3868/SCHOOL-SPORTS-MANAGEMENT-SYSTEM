@@ -1,4 +1,5 @@
-<footer class="footer">
+</main>
+  <footer class="footer">
     <div class="copy">&copy; 2024 School Sports Management System</div>
     <div class="bottom-links">
       <div class="links">
@@ -15,5 +16,8 @@
       </div>
     </div>
   </footer>
+   <!-- Link to the JavaScript file -->
+   <script src="../js/script.js"></script>
 </body>
+
 </html>

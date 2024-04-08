@@ -9,15 +9,15 @@
   <link rel="stylesheet" href="../css/student_homepage.css">
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/font_size.css">
-  
-  
 </head>
-
 <body>
   <header class="header">
     <a href="#" class="logo">SSMS</a>
-    <nav class="nav nav-items">
-      <a href="../student/student_homepage.php">Home</a>
+    <div class="nav-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+    <nav class="nav-items">
+    <a href="../student/student_homepage.php">Home</a>
       <a href="student_sport.php">Sports</a>
       <a href="../student/teams_roster.php">Team Roster</a>
       <a href="../student/student_facility.php">Sport Facility</a>
@@ -27,4 +27,3 @@
       <a href="../includes/logout.inc.php">Logout</a>
     </nav>
   </header>
- 

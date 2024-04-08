@@ -7,12 +7,14 @@ body {
   box-sizing: border-box;
   font-family: Arial, sans-serif; /* Use Arial font */
 }
+
 /* Header styles */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #f5f5f5;
+  position: relative;
 }
 
 .header .logo {
@@ -29,14 +31,6 @@ body {
   align-items: center;
   background-color: #f5f5f5;
   margin-right: 20px;
-}
-
-
-.nav-items a {
-  text-decoration: none;
-  
-  color: #000;
-  padding: 35px 20px;
 }
 
 .nav-items a {
@@ -59,7 +53,6 @@ body {
   background-position: 100% 50%; /* Adjusted background position */
   background-repeat: no-repeat;
 }
-
 
 .intro h1 {
   font-family: sans-serif;
@@ -89,14 +82,12 @@ body {
   box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4)
 }
 
-
-
-
 .achievements {
   display: flex;
+  flex-wrap: wrap; /* Allow flex items to wrap */
   justify-content: space-around;
   align-items: center;
-  padding: 40px 80px;
+  padding: 40px 20px; /* Adjust padding as needed */
 }
 
 .achievements .work {
@@ -104,7 +95,9 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 40px;
+  padding: 0 20px; /* Adjust padding as needed */
+  margin: 20px 0; /* Add margin between items */
+  text-align: center; /* Center text */
 }
 
 .achievements .work i {
@@ -131,6 +124,7 @@ body {
 
 .about-me {
   display: flex;
+  flex-wrap: wrap; /* Allow flex items to wrap */
   justify-content: center;
   align-items: center;
   padding: 40px 20px; /* Adjust padding as needed */
@@ -138,9 +132,15 @@ body {
 }
 
 .about-me img {
-  max-width: 30%; /* Set maximum width to 100% */
+  max-width: 50%; /* Set maximum width to 50% */
   height: auto; /* Set height to auto to maintain aspect ratio */
   border-radius: 30px; /* Optional: Add border-radius for rounded corners */
+  margin: 20px 0; /* Add margin */
+}
+
+.about-me-text {
+  flex: 1; /* Allow text to take remaining space */
+  max-width: 50%; /* Limit text width */
 }
 
 .about-me-text h2 {
@@ -159,10 +159,11 @@ body {
 /* Footer styles */
 .footer {
   display: flex;
+  flex-wrap: wrap; /* Allow flex items to wrap */
   justify-content: space-between;
   align-items: center;
   background-color: #302f49;
-  padding: 40px 80px;
+  padding: 40px 20px; /* Adjust padding as needed */
 }
 
 .footer .copy {
@@ -171,17 +172,18 @@ body {
 
 .bottom-links {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column; /* Align items in a column */
+  justify-content: center;
   align-items: center;
-  padding: 40px 0;
+  padding: 20px 0; /* Adjust padding */
+  margin: 20px 0; /* Add margin */
 }
 
 .bottom-links .links {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 40px;
+  margin: 10px 0; /* Add margin */
 }
 
 .bottom-links .links span {
@@ -195,4 +197,59 @@ body {
   text-decoration: none;
   color: #a1a1a1;
   padding: 10px 20px;
+}
+
+/* Hamburger menu styles */
+.nav-toggle {
+  display: none; /* Hide the hamburger menu by default */
+}
+
+/* For smaller screens, hide nav items and show hamburger menu */
+@media screen and (max-width: 768px) {
+  .nav-items {
+    display: none; /* Hide the nav items */
+  }
+
+  .header .logo {
+    margin-left: 10px; /* Adjust logo margin */
+  }
+
+  .nav-toggle {
+    display: flex; /* Show the hamburger menu */
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 9999; /* Ensure it's above other content */
+  }
+
+  .nav-toggle .fas {
+    font-size: 20px;
+    color: #000;
+  }
+
+  .nav-items.active {
+    display: flex; /* Show the nav items when the menu is toggled */
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 50%; /* Center the menu horizontally */ 
+    transform: translateX(-50%); /* Adjust for centering */
+    width: 350px; /* Adjust the width of the dropdown menu */
+    height: 400px; /* Adjust the height of the dropdown menu */
+    background-color: #333; /* Dark grey background color */
+    border-radius: 0px; /* Add rounded corners */
+    transition: opacity 0.5s ease; /* Adjust transition for smoother visibility */
+    z-index: 9999; /* Ensure it's above other content */
+    overflow-y: auto; /* Add scrollbar if content exceeds height */
+  }
+
+  .nav-items.active a {
+    padding: 15px 20px; /* Adjust padding */
+    text-align: center;
+    border-bottom: 1px solid #555; /* Darker border color */
+    color: #fff; /* White text color */
+  }
 }

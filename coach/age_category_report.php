@@ -72,6 +72,8 @@
             });
         </script>
     </div>
+    <!-- Link to the JavaScript file -->
+   <script src="../js/script.js"></script>
 </body>
 
 </html>

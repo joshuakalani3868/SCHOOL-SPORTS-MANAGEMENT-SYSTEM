@@ -1,7 +1,5 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,14 +9,14 @@
   <link rel="stylesheet" href="../css/coach_homepage.css">
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/font_size.css">
-  
-
 </head>
-
 <body>
-  <header class="header na">
+  <header class="header">
     <a href="#" class="logo">SSMS</a>
-    <nav class="nav-items ">
+    <div class="nav-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+    <nav class="nav-items">
       <a href="../coach/coach_homepage.php">Home</a>
       <a href="../coach/coach_team.php">Sports Team</a>
       <a href="../coach/teams_roster_details.php">Teams Roster</a>
@@ -28,6 +26,5 @@
       <a href="../coach/coach_report.php">Reports</a>
       <a href="../coach/coach_profile.php">Profile</a>
       <a href="../includes/logout.inc.php">Logout</a>
-    
     </nav>
   </header>

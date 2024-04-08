@@ -13,17 +13,14 @@ if (isset($_POST['save_result'])) {
     $sport_type = $_POST['sport_type'];
     $rank = $_POST['rank'];
     $score_line = $_POST['score_line'];
+    $draw_a_id = $_POST['draw_a_id'];
+    $draw_b_id = $_POST['draw_b_id'];
 
-    // If sport type is not team, assume student ID is provided
-    if ($sport_type !== 'team') {
-        $student_id = $_POST['student_id'];
-    } else {
-        // Set student ID to NULL for team sports
-        $student_id = NULL;
-    }
+    // Set student_id to NULL if "None" option is selected
+    $student_id = ($_POST['student_id'] !== 'none') ? $_POST['student_id'] : null;
 
     // Using prepared statements to prevent SQL injection
-    $stmt = $pdo->prepare("INSERT INTO results (event_id, sport_id, student_id, sport_type, rank, score_line) VALUES (:event_id, :sport_id, :student_id, :sport_type, :rank, :score_line)");
+    $stmt = $pdo->prepare("INSERT INTO results (event_id, sport_id, student_id, sport_type, rank, score_line, draw_a_id, draw_b_id) VALUES (:event_id, :sport_id, :student_id, :sport_type, :rank, :score_line, :draw_a_id, :draw_b_id)");
 
     if ($stmt) {
         // Bind parameters
@@ -33,6 +30,8 @@ if (isset($_POST['save_result'])) {
         $stmt->bindParam(':sport_type', $sport_type);
         $stmt->bindParam(':rank', $rank);
         $stmt->bindParam(':score_line', $score_line);
+        $stmt->bindParam(':draw_a_id', $draw_a_id);
+        $stmt->bindParam(':draw_b_id', $draw_b_id);
 
         // Execute the statement
         try {
@@ -62,17 +61,14 @@ if (isset($_POST['update_result'])) {
     $sport_type = $_POST['sport_type'];
     $rank = $_POST['rank'];
     $score_line = $_POST['score_line'];
+    $draw_a_id = $_POST['draw_a_id'];
+    $draw_b_id = $_POST['draw_b_id'];
 
-    // If sport type is not team, assume student ID is provided
-    if ($sport_type !== 'team') {
-        $student_id = $_POST['student_id'];
-    } else {
-        // Set student ID to NULL for team sports
-        $student_id = NULL;
-    }
+    // Set student_id to NULL if "None" option is selected
+    $student_id = ($_POST['student_id'] !== 'none') ? $_POST['student_id'] : null;
 
     // Using prepared statements to prevent SQL injection
-    $stmt = $pdo->prepare("UPDATE results SET event_id = :event_id, sport_id = :sport_id, student_id = :student_id, sport_type = :sport_type, rank = :rank, score_line = :score_line WHERE id = :result_id");
+    $stmt = $pdo->prepare("UPDATE results SET event_id = :event_id, sport_id = :sport_id, student_id = :student_id, sport_type = :sport_type, rank = :rank, score_line = :score_line, draw_a_id = :draw_a_id, draw_b_id = :draw_b_id WHERE id = :result_id");
 
     if ($stmt) {
         // Bind parameters
@@ -82,6 +78,8 @@ if (isset($_POST['update_result'])) {
         $stmt->bindParam(':sport_type', $sport_type);
         $stmt->bindParam(':rank', $rank);
         $stmt->bindParam(':score_line', $score_line);
+        $stmt->bindParam(':draw_a_id', $draw_a_id);
+        $stmt->bindParam(':draw_b_id', $draw_b_id);
         $stmt->bindParam(':result_id', $result_id);
 
         // Execute the statement
@@ -161,6 +159,20 @@ function fetchSports() {
     }
 }
 
+// Function to fetch schools from the database
+function fetchSchools() {
+    global $pdo;
+
+    try {
+        $stmt = $pdo->query("SELECT school_id, school_name FROM schools");
+        $schools = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $schools;
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return array();
+    }
+}
+
 // Function to fetch students from the database
 function fetchStudents() {
     global $pdo;
@@ -169,20 +181,6 @@ function fetchStudents() {
         $stmt = $pdo->query("SELECT t.student_id, u.username AS student_name FROM teams t JOIN users u ON t.student_id = u.id");
         $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $students;
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-        return array();
-    }
-}
-
-// Function to fetch all results from the database
-function fetchAllResults() {
-    global $pdo;
-
-    try {
-        $stmt = $pdo->query("SELECT * FROM results");
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $results;
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
         return array();

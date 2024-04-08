@@ -82,19 +82,19 @@ session_start();
                             </select>
                         </div>
                         <div class="mb-3">
-    <label for="participant_school">Participant School</label>
-    <?php
-    require '../includes/dbh.inc.php';
-    $query = "SELECT school_id, school_name FROM Schools WHERE is_host = 'participant'";
-    $result = mysqli_query($con, $query);
-    while ($row = mysqli_fetch_assoc($result)) {
-        echo "<div class='form-check'>";
-        echo "<input class='form-check-input' type='checkbox' name='participant_school[]' value='" . $row['school_id'] . "'>";
-        echo "<label class='form-check-label'>" . $row['school_name'] . "</label>";
-        echo "</div>";
-    }
-    ?>
-</div>
+                        <label for="participant_school">Participant School</label>
+                        <?php
+                        require '../includes/dbh.inc.php';
+                        $query = "SELECT school_id, school_name FROM Schools WHERE is_host = 'participant'";
+                        $result = mysqli_query($con, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<div class='form-check'>";
+                            echo "<input class='form-check-input' type='checkbox' name='participant_school[]' value='" . $row['school_id'] . "'>";
+                            echo "<label class='form-check-label'>" . $row['school_name'] . "</label>";
+                            echo "</div>";
+                        }
+                        ?>
+                    </div>
                         <div class="mb-3">
                             <button type="submit" name="save_event" class="btn btn-primary">Save Event</button>
                         </div>

@@ -1,8 +1,21 @@
 <?php
-/*session_start();*/
-require '../includes/dbh.inc.php';
-?>
+require '../includes/dbh.inc.php'; // Include database connection
 
+if(isset($_GET['id']))
+{
+    $result_id = $_GET['id'];
+    $query ="SELECT r.id, e.event_name, s.sport_name, u.username AS student_name, r.sport_type, r.rank, r.score_line 
+                FROM results r
+                JOIN events e ON r.event_id = e.id
+                JOIN sports s ON r.sport_id = s.id
+                LEFT JOIN users u ON r.student_id = u.id
+                WHERE r.id='$result_id'";
+    $query_run = mysqli_query($con, $query);
+
+    if(mysqli_num_rows($query_run) > 0)
+    {
+        $result = mysqli_fetch_array($query_run);
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -26,49 +39,38 @@ require '../includes/dbh.inc.php';
                     </h4>
                 </div>
                 <div class="card-body">
-                    <?php
-                    if(isset($_GET['id']))
-                    {
-                        $result_id = mysqli_real_escape_string($con, $_GET['id']);
-                        $query ="SELECT * FROM results WHERE id='$result_id'";
-                        $query_run = mysqli_query($con, $query);
-
-                        if(mysqli_num_rows($query_run) >0)
-                        {
-                            $result = mysqli_fetch_array($query_run);
-                            ?>
-                            <input type="hidden" name="result_id" value="<?=$result['id']; ?>">
-                            <div class="mb-3">
-                                <label for="event_name">Event</label>
-                                <p class="form-control"><?=$result['event_name'];?></p>
-                            </div>
-                            <div class="mb-3">
-                                <label for="sport_name">Sport</label>
-                                <p class="form-control"><?=$result['sport_name'];?></p>
-                            </div>
-                            <div class="mb-3">
-                                <label for="student_name">Student</label>
-                                <p class="form-control"><?=$result['student_name'];?></p>
-                            </div>
-                            <div class="mb-3">
-                                <label for="sport_type">Sport Type</label>
-                                <p class="form-control"><?=$result['sport_type'];?></p>
-                            </div>
-                            <div class="mb-3">
-                                <label for="rank">Rank</label>
-                                <p class="form-control"><?=$result['rank'];?></p>
-                            </div>
-                            <div class="mb-3">
-                                <label for="score_line">Score Line</label>
-                                <p class="form-control"><?=$result['score_line'];?></p>
-                            </div>
-                            <?php
-                        }
-                        else {
-                            echo "<h4>No such ID Found</h4>";
-                        }
-                    } 
-                    ?>
+                    <input type="hidden" name="result_id" value="<?=$result['id']; ?>">
+                    <div class="mb-3">
+                        <label for="event_name">Event</label>
+                        <p class="form-control"><?=$result['event_name'];?></p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sport_name">Sport</label>
+                        <p class="form-control"><?=$result['sport_name'];?></p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="student_name">Student</label>
+                        <p class="form-control"><?=$result['student_name'] ?? 'N/A';?></p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sport_type">Sport Type</label>
+                        <p class="form-control"><?=$result['sport_type'];?></p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rank">Rank</label>
+                        <p class="form-control"><?=$result['rank'];?></p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="score_line">Score Line</label>
+                        <p class="form-control"><?=$result['score_line'];?></p>
+                    </div>
+<?php
+    }
+    else {
+        echo "<h4>No such ID Found</h4>";
+    }
+} 
+?>
                 </div>
             </div>
         </div>

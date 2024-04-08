@@ -64,9 +64,13 @@ if(isset($_POST['delete_result'])) {
                    </div>
                 </h4>
                 </div>
-                <div class="card-body table-responsive">
+                <div class="card-body">
+                    <div class="table-responsive">
+                    <div style="overflow-x: auto; width: 1340px;">
+                            <table class="table table-bordered table-striped">
+                
                     <table class="table table-bordered table-striped">
-                        <thead>
+                    <thead>
                         <tr>
                             <th>NO</th>
                             <th>Event Name</th>
@@ -75,47 +79,51 @@ if(isset($_POST['delete_result'])) {
                             <th>Sport Type</th>
                             <th>Rank</th>
                             <th>Score Line</th>
+                            <th>Draw A</th>
+                            <th>Draw B</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
-                        $query = "SELECT r.id, e.event_name, s.sport_name, u.username AS student_name, r.sport_type, r.rank, r.score_line 
+                        $query = "SELECT r.id, e.event_name, s.sport_name, u.username AS student_name, r.sport_type, r.rank, r.score_line, sa.school_name AS draw_a_name, sb.school_name AS draw_b_name
                         FROM results r
                         JOIN events e ON r.event_id = e.id
                         JOIN sports s ON r.sport_id = s.id
-                        LEFT JOIN teams t ON r.student_id = t.student_id
-                        LEFT JOIN users u ON t.student_id = u.id";
-                        
+                        LEFT JOIN users u ON r.student_id = u.id
+                        LEFT JOIN schools sa ON r.draw_a_id = sa.school_id
+                        LEFT JOIN schools sb ON r.draw_b_id = sb.school_id";
+
                         $query_run = $pdo->query($query);
 
                         if ($query_run->rowCount() > 0) {
                             $count = 0; // Initialize count variable
                             foreach ($query_run as $result) {
                                 $count++; // Increment count for each iteration
-                                ?>
-                                <tr>
-                                    <td><?= $count; ?></td> <!-- Display the count -->
-                                    <td><?= $result['event_name']; ?></td>
-                                    <td><?= $result['sport_name']; ?></td>
-                                    <td><?= $result['student_name'] ?? 'N/A'; ?></td>
-                                    <td><?= $result['sport_type']; ?></td>
-                                    <td><?= $result['rank']; ?></td>
-                                    <td><?= $result['score_line']; ?></td>
-                                    <td>
-                                        
-                                        <a href="result_edit.php?id=<?= $result['id']; ?>" class="btn btn-success btn-sm">Edit</a>
-                                        <!-- Delete Button and Form -->
-                                        <form action="result_details.php" method="POST" class="d-inline">
-                                            <input type="hidden" name="delete_result" value="<?= $result['id']; ?>">
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <?php
+                        ?>
+                        <tr>
+                            <td><?= $count; ?></td> <!-- Display the count -->
+                            <td><?= $result['event_name']; ?></td>
+                            <td><?= $result['sport_name']; ?></td>
+                            <td><?= $result['student_name'] ?? 'N/A'; ?></td>
+                            <td><?= $result['sport_type']; ?></td>
+                            <td><?= $result['rank']; ?></td>
+                            <td><?= $result['score_line']; ?></td>
+                            <td><?= isset($result['draw_a_name']) ? $result['draw_a_name'] : 'N/A'; ?></td>
+                            <td><?= isset($result['draw_b_name']) ? $result['draw_b_name'] : 'N/A'; ?></td>
+                            <td>
+                                <a href="result_edit.php?id=<?= $result['id']; ?>" class="btn btn-success btn-sm">Edit</a>
+                                <!-- Delete Button and Form -->
+                                <form action="result_details.php" method="POST" class="d-inline">
+                                    <input type="hidden" name="delete_result" value="<?= $result['id']; ?>">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <?php
                             }
                         } else {
-                            echo "<tr><td colspan='8'>No Record Found!</td></tr>";
+                            echo "<tr><td colspan='10'>No Record Found!</td></tr>";
                         }
                         ?>
 

@@ -38,3 +38,27 @@ DROP FOREIGN KEY `results_ibfk_3`,
 ADD CONSTRAINT `results_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `student_sports` (`student_id`) ON DELETE CASCADE;
 
 
+-- Table structure for table `results`
+--
+ALTER TABLE `results`
+ADD COLUMN `draw_a_id` int(11) DEFAULT NULL,
+ADD COLUMN `draw_b_id` int(11) DEFAULT NULL,
+ADD CONSTRAINT `fk_draw_a` FOREIGN KEY (`draw_a_id`) REFERENCES `schools` (`school_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `fk_draw_b` FOREIGN KEY (`draw_b_id`) REFERENCES `schools` (`school_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+-- Table structure for table `results`
+--
+CREATE TABLE `results` (
+  `id` int(11) NOT NULL,
+  `event_id` int(11) NOT NULL,
+  `sport_id` int(11) NOT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `sport_type` enum('single','double','team') NOT NULL,
+  `rank` enum('winner','first place','second place','third place','participated') NOT NULL,
+  `score_line` varchar(255) DEFAULT NULL,
+  `draw_a_id` int(11) DEFAULT NULL,
+  `draw_b_id` int(11) DEFAULT NULL,
+  CONSTRAINT `fk_draw_a` FOREIGN KEY (`draw_a_id`) REFERENCES `schools` (`school_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_draw_b` FOREIGN KEY (`draw_b_id`) REFERENCES `schools` (`school_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ;

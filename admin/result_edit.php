@@ -7,6 +7,7 @@ include('../includes/result.inc.php'); // Include the logic file
 $sports = fetchSports(); // Assuming you have a function to fetch sports from the database
 $events = fetchEvents(); // Assuming you have a function to fetch events from the database
 $students = fetchStudents(); // Assuming you have a function to fetch students from the database
+$schools = fetchSchools(); // Assuming you have a function to fetch schools from the database
 
 ?>
 
@@ -70,9 +71,14 @@ $students = fetchStudents(); // Assuming you have a function to fetch students f
                                 <div class="mb-3">
                                     <label for="student_id">Student</label>
                                     <select id="student_id" name="student_id" class="form-control">
-                                        <?php foreach ($students as $student): ?>
-                                            <option value="<?=htmlspecialchars($student['student_id']); ?>" <?php if($student['student_id'] == $result['student_id']) echo 'selected'; ?>><?php echo htmlspecialchars($student['student_name']); ?></option>
-                                        <?php endforeach; ?>
+                                        <?php if ($result['sport_type'] !== 'team'): ?>
+                                            <option value="none">None</option>
+                                            <?php foreach ($students as $student): ?>
+                                                <option value="<?=htmlspecialchars($student['student_id']); ?>" <?php if($student['student_id'] == $result['student_id']) echo 'selected'; ?>><?php echo htmlspecialchars($student['student_name']); ?></option>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <option value="none" selected>None</option>
+                                        <?php endif; ?>
                                     </select>
                                 </div>
                                 <div class="mb-3">
@@ -96,6 +102,22 @@ $students = fetchStudents(); // Assuming you have a function to fetch students f
                                 <div class="mb-3">
                                     <label for="score_line">Score Line</label>
                                     <input type="text" id="score_line" name="score_line" value="<?=htmlspecialchars($result['score_line']);?>" class="form-control" maxlength="255">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="draw_a_id">Draw A School</label>
+                                    <select id="draw_a_id" name="draw_a_id" class="form-control">
+                                        <?php foreach ($schools as $school): ?>
+                                            <option value="<?=htmlspecialchars($school['school_id']); ?>" <?php if($school['school_id'] == $result['draw_a_id']) echo 'selected'; ?>><?php echo htmlspecialchars($school['school_name']); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="draw_b_id">Draw B School</label>
+                                    <select id="draw_b_id" name="draw_b_id" class="form-control">
+                                        <?php foreach ($schools as $school): ?>
+                                            <option value="<?=htmlspecialchars($school['school_id']); ?>" <?php if($school['school_id'] == $result['draw_b_id']) echo 'selected'; ?>><?php echo htmlspecialchars($school['school_name']); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <button type="submit" name="update_result" class="btn btn-primary">Update Result</button>
@@ -122,6 +144,8 @@ $students = fetchStudents(); // Assuming you have a function to fetch students f
 <script>
     $(document).ready(function() {
         $('#student_id').select2(); // Initialize Select2 on your student select element
+        $('#draw_a_id, #draw_b_id').select2(); // Initialize Select2 on your draw A and draw B select elements
     });
 </script>
-</
+</body>
+</html>

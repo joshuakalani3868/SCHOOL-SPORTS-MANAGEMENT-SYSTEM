@@ -25,8 +25,7 @@ require '../includes/dbh.inc.php';
                         </div>
                     </h4>
                 </div>
-                <div class="card-body">
-                    
+                <div class="card-body table-responsive">
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>

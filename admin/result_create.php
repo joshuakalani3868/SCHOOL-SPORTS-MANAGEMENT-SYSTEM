@@ -8,9 +8,13 @@ $sports = fetchSports(); // Assuming you have a function to fetch sports from th
 // Fetch events available
 $events = fetchEvents(); // Fetch events from the database
 
+// Fetch schools available
+$schools = fetchSchools(); // Fetch schools from the database
+
 // Fetch students available
 $students = fetchStudents(); // Fetch students from the database
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -58,18 +62,17 @@ $students = fetchStudents(); // Fetch students from the database
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="student_id">Student</label>
-                            <select id="student_id" name="student_id" class="form-control">
-                                <?php if ($sport_type !== 'team'): ?>
-                                    <option value="none">None</option>
-                                    <?php foreach ($students as $student): ?>
-                                        <option value="<?php echo $student['student_id']; ?>"><?php echo $student['student_name']; ?></option>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <option value="none" selected>None</option>
-                                <?php endif; ?>
-                            </select>
-                        </div>
+                        <label for="student_id">Student</label>
+                        <select id="student_id" name="student_id" class="form-control">
+                            <?php if ($sport_type !== 'team'): ?>
+                                <option value="none">None</option>
+                                <?php foreach ($students as $student): ?>
+                                    <option value="<?php echo $student['student_id']; ?>"><?php echo $student['student_name']; ?></option>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <option value="none" selected>None</option>
+                            <?php endif; ?>
+                        </select>
                         <div class="mb-3">
                             <label for="sport_type">Sport Type</label>
                             <select id="sport_type" name="sport_type" class="form-control">
@@ -93,6 +96,22 @@ $students = fetchStudents(); // Fetch students from the database
                             <input type="text" id="score_line" name="score_line" class="form-control" maxlength="255">
                         </div>
                         <div class="mb-3">
+                            <label for="draw_a_id">Draw A School</label>
+                            <select id="draw_a_id" name="draw_a_id" class="form-control">
+                                <?php foreach ($schools as $school): ?>
+                                    <option value="<?php echo $school['school_id']; ?>"><?php echo $school['school_name']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="draw_b_id">Draw B School</label>
+                            <select id="draw_b_id" name="draw_b_id" class="form-control">
+                                <?php foreach ($schools as $school): ?>
+                                    <option value="<?php echo $school['school_id']; ?>"><?php echo $school['school_name']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <button type="submit" name="save_result" class="btn btn-primary">Save Result</button>
                         </div>
                     </form>
@@ -109,7 +128,8 @@ $students = fetchStudents(); // Fetch students from the database
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#student_id').select2(); // Initialize Select2 on your student select element
+        // Initialize Select2 on your select elements
+        $('#event_id, #sport_id, #draw_a_id, #draw_b_id').select2();
     });
 </script>
 </body>

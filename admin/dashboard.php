@@ -6,7 +6,7 @@
 
     <!-- ===== CSS ===== -->
     <link rel="stylesheet" href="../css/dashboard.css">
-    <title> Admin Dashboard</title>
+    <title>Admin Dashboard</title>
 </head>
 <body id="body-pd">
     <div class="l-navbar" id="navbar">

@@ -62,3 +62,22 @@ CREATE TABLE `results` (
   CONSTRAINT `fk_draw_a` FOREIGN KEY (`draw_a_id`) REFERENCES `schools` (`school_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_draw_b` FOREIGN KEY (`draw_b_id`) REFERENCES `schools` (`school_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
+
+
+-- after sys win crash
+CREATE TABLE `results` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `event_id` INT NOT NULL,
+  `sport_id` INT NOT NULL,
+  `student_id` INT DEFAULT NULL,
+  `sport_type` ENUM('single','double','team') NOT NULL,
+  `rank` ENUM('winner','first place','second place','third place','participated') NOT NULL,
+  `score_line` VARCHAR(255) DEFAULT NULL,
+  `draw_a_id` INT DEFAULT NULL,
+  `draw_b_id` INT DEFAULT NULL,
+  CONSTRAINT `fk_event` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_sport` FOREIGN KEY (`sport_id`) REFERENCES `sports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_student` FOREIGN KEY (`student_id`) REFERENCES `teams` (`student_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_draw_a` FOREIGN KEY (`draw_a_id`) REFERENCES `schools` (`school_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_draw_b` FOREIGN KEY (`draw_b_id`) REFERENCES `schools` (`school_id`) ON DELETE CASCADE ON UPDATE CASCADE
+);

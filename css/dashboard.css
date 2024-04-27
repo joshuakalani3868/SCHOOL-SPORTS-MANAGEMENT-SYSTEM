@@ -172,3 +172,35 @@ a{
   width: 45%; /* Adjust width as needed */
   border-radius: 10px; /* Optional: Add border-radius for rounded corners */
 }
+
+/* For screens smaller than 768px (typically mobile devices) */
+@media only screen and (max-width: 768px) {
+  body {
+    padding: 2rem;
+  }
+
+  .l-navbar {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .nav__link {
+    padding: .5rem;
+  }
+
+  .collapse__menu {
+    padding: .5rem;
+  }
+
+  /* Add more adjustments as needed */
+
+  /* For the about-me section */
+  .about-me {
+    flex-direction: column;
+  }
+
+  .about-me .about-me-text,
+  .about-me img {
+    width: 100%; /* Adjust width to fit smaller screens */
+  }
+}

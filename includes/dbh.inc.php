@@ -23,16 +23,5 @@ if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Function to delete a user by ID
-/*function deleteUser($pdo, $user_id) {
-    $stmt = $pdo->prepare("DELETE FROM users WHERE id = :user_id");
-    $stmt->bindParam(':user_id', $user_id);
 
-    try {
-        $stmt->execute();
-        return true; // Deletion successful
-    } catch (PDOException $e) {
-        return false; // Deletion failed
-    }
-}*/
 ?>

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2024 at 04:56 PM
+-- Generation Time: Apr 28, 2024 at 05:44 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -112,8 +112,21 @@ CREATE TABLE `results` (
   `student_id` int(11) DEFAULT NULL,
   `sport_type` enum('single','double','team') NOT NULL,
   `rank` enum('winner','first place','second place','third place','participated') NOT NULL,
-  `score_line` varchar(255) DEFAULT NULL
+  `score_line` varchar(255) DEFAULT NULL,
+  `draw_a_id` int(11) DEFAULT NULL,
+  `draw_b_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `results`
+--
+
+INSERT INTO `results` (`id`, `event_id`, `sport_id`, `student_id`, `sport_type`, `rank`, `score_line`, `draw_a_id`, `draw_b_id`) VALUES
+(1, 1, 1, NULL, 'team', 'winner', '3-0', 1, 5),
+(2, 2, 7, NULL, 'team', 'second place', '11-34', 1, 8),
+(3, 5, 5, 9, 'single', 'winner', '1:56.23 ', 1, 6),
+(4, 7, 10, 15, 'single', 'participated', '2-0', 4, 3),
+(5, 4, 2, 13, 'single', 'third place', '13-20', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -315,7 +328,7 @@ INSERT INTO `users` (`id`, `username`, `pwd`, `email`, `created_at`, `role`, `ag
 (6, 'krewella', '$2y$10$g0gBePSH8M2gW5eoI36s5OSkQqnsil5gJj/UhUuwvYMmVSNmla6pW', 'krewella@gmail.com', '2024-03-06 15:57:49', 'coach', 21, 'female', '0789654378'),
 (7, 'kaka', '$2y$10$1JhQagupfoNByFmRG2uaJu6jx08P8ab5CrXft2HoEEM.Pf9HgZq1.', 'kaka@gmail.com', '2024-03-06 15:59:34', 'student', 22, 'male', '0734562170'),
 (8, 'lydia', '$2y$10$RSewTcVMm6tE7ft5QPXeou3VntWOUc5KqwsAvhr/7BScLikNxltpy', 'lydia@gmail.com', '2024-03-06 16:14:31', 'coach', 35, 'female', '0734562134'),
-(9, 'mathew', '$2y$10$U3zjaOID02DHhuuNvuTUSubxwPZe8joy4NErz52yIKWVlW.QH2JqS', 'mathew@gmail.com', '2024-03-06 16:24:41', 'student', 16, 'male', '0768974563'),
+(9, 'mathew', '$2y$10$XlvGpyoqOLkMoMRDOmg6nOSJSPEzMqJGDOCdlPChyg/edGFj0O3U.', 'mathew@gmail.com', '2024-03-06 16:24:41', 'student', 16, 'male', '0768974563'),
 (10, 'vincent', '$2y$10$TFdVhrpApUnItUXE6Pe9mecC8q3cehPDxWTfL5txqERmRYp/bUBWm', 'Vincent@gmail.com', '2024-03-06 16:25:32', 'coach', 56, 'male', '0789009345'),
 (11, 'lisa', '$2y$10$FgUeNaZK3mfv3ERhyWV59OVy9gNghdVvUoPNHwcWdAynxiXbWwP52', 'lisa@gmail.com', '2024-03-06 17:57:57', 'student', 23, 'female', '0756777345'),
 (12, 'saka', '$2y$10$ghThJZlO6nhz.ldq12sjbOsWrJ5YJHVC0pfteEfYp//QWxE30Wr0u', 'saka@gmail.com', '2024-03-06 19:31:43', 'student', 21, 'male', '0711765432'),
@@ -354,7 +367,8 @@ INSERT INTO `users` (`id`, `username`, `pwd`, `email`, `created_at`, `role`, `ag
 (45, 'alvin', '$2y$12$CG7/RgfHcqv3WOVc24QXiOQIS8T4EBmCG/I/kaGpmezv0vxdDBiYG', 'alvin@gmail.com', '2024-03-06 20:15:10', 'student', NULL, NULL, NULL),
 (46, 'david', '$2y$10$PWntW.PMR8kQ1XUcYd9S5Oh8fD8QkIfh0hA2lIYJ7ejobTJcq34F.', 'david@gmail.com', '2024-03-06 21:35:50', 'coach', 50, 'male', '0711567843'),
 (47, 'ezekiel', '$2y$12$khIkedLRPcMM3NumRvAWA.Z5nM8dG5I/mjspp4QBYlqD.M1Q9F/Wu', 'ezekiel@gmail.com', '2024-03-07 08:39:10', 'student', NULL, NULL, NULL),
-(48, 'haland', '$2y$10$XOloU0pqkh/O242BHUF8ROWisF9QLCSbeAsSqlEp26cewNyBXdSDO', 'haland@gmail.com', '2024-03-09 14:57:29', 'coach', 45, 'male', '0711876543');
+(48, 'haland', '$2y$10$XOloU0pqkh/O242BHUF8ROWisF9QLCSbeAsSqlEp26cewNyBXdSDO', 'haland@gmail.com', '2024-03-09 14:57:29', 'coach', 45, 'male', '0711876543'),
+(49, 'arteta', '$2y$12$Gyncg5fs1J42ySfVEytOAOvI2gtU2bfWtsFO2nRAcUvqzwfZF02lO', 'arteta@gmail.com', '2024-04-28 16:38:24', 'student', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -385,9 +399,11 @@ ALTER TABLE `facility_sport`
 --
 ALTER TABLE `results`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `event_id` (`event_id`),
-  ADD KEY `sport_id` (`sport_id`),
-  ADD KEY `results_ibfk_3` (`student_id`);
+  ADD KEY `fk_event` (`event_id`),
+  ADD KEY `fk_sport` (`sport_id`),
+  ADD KEY `fk_student` (`student_id`),
+  ADD KEY `fk_draw_a` (`draw_a_id`),
+  ADD KEY `fk_draw_b` (`draw_b_id`);
 
 --
 -- Indexes for table `schools`
@@ -451,7 +467,7 @@ ALTER TABLE `facilities`
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `schools`
@@ -487,7 +503,7 @@ ALTER TABLE `teams_roster`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- Constraints for dumped tables
@@ -510,9 +526,11 @@ ALTER TABLE `facility_sport`
 -- Constraints for table `results`
 --
 ALTER TABLE `results`
-  ADD CONSTRAINT `results_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`),
-  ADD CONSTRAINT `results_ibfk_2` FOREIGN KEY (`sport_id`) REFERENCES `sports` (`id`),
-  ADD CONSTRAINT `results_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `teams` (`student_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_draw_a` FOREIGN KEY (`draw_a_id`) REFERENCES `schools` (`school_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_draw_b` FOREIGN KEY (`draw_b_id`) REFERENCES `schools` (`school_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_event` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_sport` FOREIGN KEY (`sport_id`) REFERENCES `sports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_student` FOREIGN KEY (`student_id`) REFERENCES `teams` (`student_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `student_sports`

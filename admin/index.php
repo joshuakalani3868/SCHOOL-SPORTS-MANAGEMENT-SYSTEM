@@ -59,7 +59,7 @@ if(isset($_SESSION['username'])) {
             <?php check_login_errors(); ?>
             <form action="../includes/login.inc.php" method="post" autocomplete="off">
                 <input type="text" name="username" placeholder="Username" value="" autocomplete="off">
-                <input type="password" name="pwd" placeholder="Password" value="" autocomplete="off">
+                <input type="password" name="pwd" placeholder="Password" value="" autocomplete="off" maxlenght="8">
                 <button>Login</button>
             </form>
         </div>
@@ -68,7 +68,7 @@ if(isset($_SESSION['username'])) {
             <h3>Signup</h3>
             <form action="../includes/signup.inc.php" method="post" autocomplete="off">
                 <input type="text" name="username" placeholder="Username" value="" autocomplete="off">
-                <input type="password" name="pwd" placeholder="Password" value="" autocomplete="off">
+                <input type="password" name="pwd" placeholder="Password" value="" autocomplete="off" maxlenght="8">
                 <input type="email" name="email" placeholder="E-Mail" value="" autocomplete="off">
                 <button>Sign Up</button>
             </form>
